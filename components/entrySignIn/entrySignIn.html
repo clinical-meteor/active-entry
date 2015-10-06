@@ -1,0 +1,41 @@
+<template name="entrySignIn">
+  <div id="entrySignIn" class="page entryPage">
+
+    <div class="content-scrollable">
+      <div class="wrapper-auth">
+        <div class="entryLogo" style="background-image: url('{{getLogoUrl}}')"></div>
+
+        {{#if isLoggedIn}}
+          <h1 id="signInPageTitle" class="title-auth">{{fullName}}</h1>
+          <p id="signInPageMessage" class="subtitle-auth">You are currently signed in.</p>
+
+          <button id="logoutButton" type="submit" class="btn-primary btn-main">Logout</button>
+        {{else}}
+          <h1 id="signInPageTitle" class="title-auth">Sign In.</h1>
+          <p id="signInPageMessage" class="subtitle-auth" >Improve your clincal practice with checklists.</p>
+
+          <form>
+            <div class="input-symbol">
+              <input id="signInPageEmailInput" type="email" name="email" placeholder="Your Email" style="{{getEmailValidationStyling}}" />
+              <i class="fa fa-envelope-o" title="Your Email"></i>
+            </div>
+            <br><br>
+
+            <div class="input-symbol">
+              <input id="signInPagePasswordInput" type="password" name="password" placeholder="Password" style={{getPasswordValidationStyling}} />
+              <span class="fa fa-lock" title="Password"></span>
+            </div>
+
+            <button id="signInToAppButton" type="submit" class="btn-primary btn-main">{{getButtonText}}</button>
+            <br>
+            <br>
+
+            <button id="needAnAccountButton" class="btn-gray btn-main">Need an account?</button><br><br>
+            <button id="forgotPasswordButton" class="btn-gray btn-main">Forgot password?</button>
+          </form>
+        {{/if}}
+      </div>
+
+    </div>
+  </div>
+</template>
