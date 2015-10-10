@@ -1,10 +1,7 @@
-
-
-
 //==================================================================================================
 // ROUTER
 
-Router.route('entrySignUp',{
+Router.route('entrySignUp', {
   template: 'entrySignUp',
   name: 'entrySignUp'
 });
@@ -15,9 +12,9 @@ Router.route('entrySignUp',{
 
 Template.entrySignUp.helpers({
   getButtonText: function () {
-    if(ActiveEntry.errorMessages.get('signInError')){
+    if (ActiveEntry.errorMessages.get('signInError')) {
       return ActiveEntry.errorMessages.get('signInError').message;
-    }else{
+    } else {
       return "Sign In";
     }
   },
@@ -68,7 +65,7 @@ Template.entrySignUp.helpers({
 });
 
 Template.entrySignUp.events({
-  "click #signUpPageSignInButton":function(){
+  "click #signUpPageSignInButton": function () {
     Router.go('/entrySignIn');
   },
   'change, keyup #signUpPageEmailInput': function (event, template) {
@@ -95,7 +92,7 @@ Template.entrySignUp.events({
     ActiveEntry.verifyFullName(fullName);
     ActiveEntry.errorMessages.set('signInError', null);
   },
-  'submit': function(event, template) {
+  'submit': function (event, template) {
     event.preventDefault();
 
     ActiveEntry.errorMessages.set('signInError', null);
@@ -129,11 +126,11 @@ Template.entrySignUp.events({
       }
       if (result) {
         console.log('result', result);
-        var ActiveEntryConfig = Session.get('Photonic.ActiveEntry');
-        Router.go(ActiveEntryConfig.signUp.destination);
       }
 
-      Router.go('/table/users');
+      var ActiveEntryConfig = Session.get('Photonic.ActiveEntry');
+      Router.go(ActiveEntryConfig.signUp.destination);
+      // Router.go('/table/users');
     });
   }
 });

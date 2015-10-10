@@ -1,6 +1,6 @@
 Package.describe({
   name: 'clinical:active-entry',
-  version: '0.2.2',
+  version: '0.2.3',
   // Brief, one-line summary of the package.
   summary: 'SignIn, SignUp, and ForgotPassword pages for Clinical Framework. ',
   // URL to the Git repository containing the source code for this package.
@@ -11,7 +11,7 @@ Package.describe({
 });
 
 Package.onUse(function (api) {
-  api.versionsFrom('1.0.4');
+  api.versionsFrom('1.1.0.2');
   //api.addFiles('clinical-entry-pages.js');
 
   api.use('photonic:glass-ui');

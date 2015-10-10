@@ -19,29 +19,27 @@
 
 
 
-describe('Photonic:ActiveEntry', function () {
-  describe('ActiveEntry - isAbc()', function () {
-    it.client('returns Abc on client', function () {
-      expect(ActiveEntry.isAbc()).to.equal("abc");
+describe('clinical:active-entry', function () {
+
+  describe('user interface', function () {
+    it.client('displays a sign-in page on /sign-in route', function () {
+
     });
-    it.server('returns Abc on server', function () {
-      expect(ActiveEntry.isAbc()).to.equal("abc");
+    it.client('displays a sign-up page on /sign-up route', function () {
+
+    });
+    it.client('displays a forgot-password page on /forgot-password route', function () {
+
     });
   });
 
-  describe('Account - onResetPasswordLink()', function () {
-    it.client('returns Abc on client', function () {
-      expect(true).to.be.true;
+  describe('server functionality', function () {
+    it.client('creates a new user when signing up', function () {
+
     });
-  });
-  describe('Account - onEnrollmentLink()', function () {
-    it.client('returns Abc on client', function () {
-      expect(true).to.be.true;
-    });
-  });
-  describe('Account - onEmailVerificationLink()', function () {
-    it.client('returns Abc on client', function () {
-      expect(true).to.be.true;
+
+    it.client('creates a user profile for a new user', function () {
+
     });
   });
 });
