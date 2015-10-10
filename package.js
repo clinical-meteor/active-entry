@@ -75,7 +75,7 @@ Package.onTest(function (api) {
   ], ['client']);
 
   api.use('tinytest');
-  api.use('photonic:active-entry');
+  api.use('photonic:active-entry@0.2.4');
   api.use('clinical:verification');
   api.addFiles('tests/tinytest/clinical-entry-pages-tests.js');
 });
