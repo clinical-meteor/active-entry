@@ -1,6 +1,6 @@
 Package.describe({
   name: 'clinical:active-entry',
-  version: '0.2.3',
+  version: '0.2.4',
   // Brief, one-line summary of the package.
   summary: 'SignIn, SignUp, and ForgotPassword pages for Clinical Framework. ',
   // URL to the Git repository containing the source code for this package.
