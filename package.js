@@ -14,7 +14,7 @@ Package.onUse(function (api) {
   api.versionsFrom('1.1.0.2');
   //api.addFiles('clinical-entry-pages.js');
 
-  api.use('photonic:glass-ui');
+  api.use('photonic:glass-ui@0.2.4');
 
   api.use([
     'templating',
@@ -75,7 +75,7 @@ Package.onTest(function (api) {
   ], ['client']);
 
   api.use('tinytest');
-  api.use('photonic:active-entry@0.2.4');
+  api.use('clinical:active-entry');
   api.use('clinical:verification');
   api.addFiles('tests/tinytest/clinical-entry-pages-tests.js');
 });
