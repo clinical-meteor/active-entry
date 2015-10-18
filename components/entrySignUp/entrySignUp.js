@@ -92,6 +92,7 @@ Template.entrySignUp.events({
     ActiveEntry.verifyFullName(fullName);
     ActiveEntry.errorMessages.set('signInError', null);
   },
+  // TODO:  this is outdated, and should be changed to match the signature/pattern in entrySignIn
   'submit': function (event, template) {
     event.preventDefault();
 

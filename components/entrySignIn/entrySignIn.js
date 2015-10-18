@@ -69,26 +69,19 @@ Template.entrySignIn.events({
   },
   'submit': function (event, template) {
     event.preventDefault();
-
     var emailValue = template.$('[name=email]').val();
     var passwordValue = template.$('[name=password]').val();
 
-    ActiveEntry.verifyPassword(passwordValue);
-    ActiveEntry.verifyEmail(emailValue);
+    ActiveEntry.signIn(emailValue, passwordValue);
+  },
+  'click #signInToAppButton': function (event, template){
+    var emailValue = template.$('[name=email]').val();
+    var passwordValue = template.$('[name=password]').val();
 
-    Meteor.loginWithPassword({email: emailValue}, passwordValue, function (error, result) {
-      if (error) {
-        console.log('error', error);
-        ActiveEntry.errorMessages.set('signInError', error);
-      }
-      if (result) {
-        console.log('result', result);
-        var ActiveEntryConfig = Session.get('Photonic.ActiveEntry');
-        Router.go(ActiveEntryConfig.signIn.destination);
-      }
-    });
+    ActiveEntry.signIn(emailValue, passwordValue);
   }
 });
+
 
 
 //==================================================================================================
