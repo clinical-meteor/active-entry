@@ -1,10 +1,10 @@
 Package.describe({
   name: 'clinical:active-entry',
-  version: '0.2.5',
+  version: '1.2.5',
   // Brief, one-line summary of the package.
   summary: 'SignIn, SignUp, and ForgotPassword pages for Clinical Framework. ',
   // URL to the Git repository containing the source code for this package.
-  git: 'https://github.com/awatson1978/clinical-entry-pages',
+  git: 'https://github.com/clinical-meteor/clinical-active-entry',
   // By default, Meteor will default to using README.md for documentation.
   // To avoid submitting documentation, set this field to null.
   documentation: 'README.md'
