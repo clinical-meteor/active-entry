@@ -1,6 +1,6 @@
 Package.describe({
   name: 'clinical:active-entry',
-  version: '1.3.0',
+  version: '1.3.1',
   // Brief, one-line summary of the package.
   summary: 'SignIn, SignUp, and ForgotPassword pages for Clinical Framework. ',
   // URL to the Git repository containing the source code for this package.
@@ -69,8 +69,8 @@ Package.onUse(function (api) {
 Package.onTest(function (api) {
   api.use([
     'templating',
-    'iron:router@1.0.4',
-    'grove:less',
+    'iron:router@1.0.9',
+    'grove:less@0.1.1',
     'standard-app-packages'
   ], ['client']);
 
