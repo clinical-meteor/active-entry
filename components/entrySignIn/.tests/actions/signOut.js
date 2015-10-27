@@ -1,4 +1,6 @@
 exports.command = function (fullname) {
+  this
+    .sectionBreak(".signOut()");
 
   if (fullname) {
     this
@@ -8,7 +10,7 @@ exports.command = function (fullname) {
 
   this
     .verify.elementPresent("#logoutLink")
-    .click("#logoutLink").pause(500);
+    .click("#logoutLink").pause(1000);
 
   if (fullname) {
     this
