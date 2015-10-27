@@ -18,8 +18,8 @@ Package.onUse(function (api) {
 
   api.use([
     'templating',
-    'iron:router@1.0.4',
-    'grove:less@0.1.0',
+    'iron:router@1.0.9',
+    'grove:less@0.1.1',
     'session',
     'reactive-dict',
     'accounts-base',
