@@ -2,7 +2,7 @@
 //==================================================================================================
 // ROUTER
 
-Router.route('entrySignIn', {
+Router.route('/entrySignIn', {
   template: 'entrySignIn',
   name: 'entrySignIn'
 });
@@ -51,10 +51,12 @@ Template.entrySignIn.events({
   'click #logoutButton': function () {
     Meteor.logout();
   },
-  'click #forgotPasswordButton': function () {
+  'click #forgotPasswordButton': function (event) {
+    event.preventDefault();
     Router.go('/forgotPassword');
   },
   "click #needAnAccountButton": function () {
+    event.preventDefault();
     Router.go('/entrySignUp');
   },
   'change #signInPageEmailInput': function (event, template) {

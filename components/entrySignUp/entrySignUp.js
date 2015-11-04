@@ -1,7 +1,7 @@
 //==================================================================================================
 // ROUTER
 
-Router.route('entrySignUp', {
+Router.route('/entrySignUp', {
   template: 'entrySignUp',
   name: 'entrySignUp'
 });
