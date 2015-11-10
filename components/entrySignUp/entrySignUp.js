@@ -122,7 +122,7 @@ Template.entrySignUp.events({
       }
     }, function (error, result) {
       if (error) {
-        console.log('error', error);
+        console.log(error);
         ActiveEntry.errorMessages.set('signInError', error);
       }
       if (result) {
@@ -131,7 +131,6 @@ Template.entrySignUp.events({
 
       var ActiveEntryConfig = Session.get('Photonic.ActiveEntry');
       Router.go(ActiveEntryConfig.signUp.destination);
-      // Router.go('/table/users');
     });
   }
 });
