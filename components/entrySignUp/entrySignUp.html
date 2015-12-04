@@ -3,7 +3,9 @@
 
     <div class="content-scrollable">
       <div class="wrapper-auth">
-        <div class="entryLogo" style="background-image: url('{{getLogoUrl}}')"></div>
+        {{#if logoIsDisplayed}}
+          <div class="entryLogo" style="background-image: url('{{logoUrl}}')"></div>
+        {{/if}}
 
         <h1 id="signUpPageTitle" class="title-auth">Join.</h1>
         <p id="signUpPageMessage" class="subtitle-auth" >Joining allows you to make private lists</p>

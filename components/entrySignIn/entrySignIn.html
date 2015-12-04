@@ -3,7 +3,9 @@
 
     <div class="content-scrollable">
       <div class="wrapper-auth">
-        <div class="entryLogo" style="background-image: url('{{getLogoUrl}}')"></div>
+        {{#if logoIsDisplayed}}
+          <div class="entryLogo" style="background-image: url('{{logoUrl}}')"></div>
+        {{/if}}
 
         {{#if isLoggedIn}}
           <h1 id="signInPageTitle" class="title-auth">{{fullName}}</h1>

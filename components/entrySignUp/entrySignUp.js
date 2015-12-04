@@ -5,6 +5,10 @@ Router.route('/entrySignUp', {
   template: 'entrySignUp',
   name: 'entrySignUp'
 });
+Router.route('/sign-up', {
+  template: 'entrySignUp',
+  name: 'signUpRoute'
+});
 
 //==================================================================================================
 
@@ -70,11 +74,13 @@ Template.entrySignUp.events({
   },
   'change, keyup #signUpPageEmailInput': function (event, template) {
     var email = template.$('[name="email"]').val();
+
     ActiveEntry.verifyEmail(email);
     ActiveEntry.errorMessages.set('signInError', null);
   },
   'change, keyup #signUpPagePasswordInput': function (event, template) {
     var password = template.$('[name="password"]').val();
+
     ActiveEntry.verifyPassword(password);
     ActiveEntry.errorMessages.set('signInError', null);
   },

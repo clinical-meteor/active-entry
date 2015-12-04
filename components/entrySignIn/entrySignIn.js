@@ -6,7 +6,10 @@ Router.route('/entrySignIn', {
   template: 'entrySignIn',
   name: 'entrySignIn'
 });
-
+Router.route('/sign-in', {
+  template: 'entrySignIn',
+  name: 'signInRoute'
+});
 
 //==================================================================================================
 // COMPONENT OUTPUTS
