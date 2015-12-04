@@ -1,16 +1,17 @@
-## photonic:active-entry
+## clinical:active-entry
 
 Part of the ``clinical:multiactor`` package collection.  This package provides the SignIn, SignUp, and ForgotPassword pages.
 
 
-### Installation
+===============================
+#### Installation
 
 ````
-meteor add photonic:active-entry
+meteor add clinical:active-entry
 ````
 
-
-### Routing API
+===============================
+#### Routing API
 
 ````
 /entrySignIn
@@ -18,7 +19,8 @@ meteor add photonic:active-entry
 /forgotPassword
 ````
 
-### Component API
+===============================
+#### Component API
 
 ````
 {{> entrySignIn }}
@@ -28,7 +30,7 @@ meteor add photonic:active-entry
 
 
 ===============================
-### ActiveEntry Configuration
+#### ActiveEntry Configuration
 
 ````js
 
