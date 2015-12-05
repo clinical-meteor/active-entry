@@ -62,13 +62,27 @@ Template.entrySignIn.events({
     event.preventDefault();
     Router.go('/entrySignUp');
   },
-  'change #signInPageEmailInput': function (event, template) {
-    var email = template.$('[name="email"]').val();
+  'keyup input[name="email"]': function (event, template) {
+    var email = $('input[name="email"]').val();
+
     ActiveEntry.verifyEmail(email);
     ActiveEntry.errorMessages.set('signInError', null);
   },
+  'change input[name="email"]': function (event, template) {
+    var email = $('input[name="email"]').val();
+
+    ActiveEntry.verifyEmail(email);
+    ActiveEntry.errorMessages.set('signInError', null);
+  },
+  'keyup #signInPagePasswordInput': function (event, template) {
+    var password = $('input[name="password"]').val();
+
+    ActiveEntry.verifyPassword(password);
+    ActiveEntry.errorMessages.set('signInError', null);
+  },
   'change #signInPagePasswordInput': function (event, template) {
-    var password = template.$('[name="password"]').val();
+    var password = $('input[name="password"]').val();
+
     ActiveEntry.verifyPassword(password);
     ActiveEntry.errorMessages.set('signInError', null);
   },

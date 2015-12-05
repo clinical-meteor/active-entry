@@ -3,7 +3,7 @@
 // @import 'client/app/stylesheets/util/typography.lessimport';
 
 
-
+// this probably wants to be moved into photonic:glass-ui
 input, button, select{
   font-size: 14px;
   line-height: 20px;
@@ -91,23 +91,26 @@ input, button, select{
       width: 80%;
     }
 
-    .input-symbol{
-      border: 1px solid gray;
-    }
+    // .input-symbol{
+    //   border: 1px solid gray;
+    // }
 
     .title-auth {
-      //.font-l1;
-      //.type-light;
       color: black;
       margin-bottom: .75rem;
     }
 
     .subtitle-auth {
-      color: blackl;
+      color: black;
       margin: 0 15% 3rem;
     }
 
     form {
+      input{
+        color: #333333;
+        height: 48px;
+        border-left: solid 1px !important;
+      }
       .input-symbol {
         margin-bottom: 1px;
         width: 100%;
@@ -152,15 +155,6 @@ input, button, select{
   }
 
   @media only screen and (max-width: 704px) {
-    .input-symbol{
-      //width: 90%;
-    }
-    .btn-gray{
-      //width: 90%;
-    }
-    input{
-      //width: 90%;
-    }
     .fa{
       left: 5%;
     }

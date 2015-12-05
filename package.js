@@ -7,12 +7,12 @@ Package.describe({
 });
 
 Package.onUse(function (api) {
-  api.versionsFrom('1.1.0.2');
-  //api.addFiles('clinical-entry-pages.js');
+  api.versionsFrom('1.1.0.3');
 
-  api.use('photonic:glass-ui@0.2.4');
+  // api.use('photonic:glass-ui@0.2.4');
 
   api.use([
+    'meteor-platform',
     'templating',
     'clinical:router@2.0.13',
     'grove:less@0.1.1',
