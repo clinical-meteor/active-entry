@@ -2,7 +2,7 @@
 /**
  * @summary Determines if a block of code should be displayed based on whether the logo is set to be displayed.
  * @locus Client
- * @memberOf ActiveEntry
+ * @memberOf Entry
  * @name {{logoIsDisplayed}}
  * @version 1.2.3
  * @returns {Boolean}
@@ -26,7 +26,7 @@ Template.registerHelper("logoIsDisplayed", function (argument){
 /**
  * @summary Retruns the Url of the logo asset.
  * @locus Client
- * @memberOf ActiveEntry
+ * @memberOf Entry
  * @name {{logoUrl}}
  * @version 1.2.3
  * @returns {String}
