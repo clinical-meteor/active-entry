@@ -112,31 +112,11 @@ Template.entrySignUp.events({
       confirm: template.$('[name="confirm"]').val()
     };
 
-
-    ActiveEntry.verifyFullName(newUser.fullName);
-    ActiveEntry.verifyEmail(newUser.email);
-    ActiveEntry.verifyPassword(newUser.password);
-    ActiveEntry.verifyConfirmPassword(newUser.password, newUser.confirm);
-
-    console.log('newUser', newUser);
-
-    Accounts.createUser({
-      email: newUser.email,
-      password: newUser.password,
-      profile: {
-        fullName: newUser.fullName
-      }
-    }, function (error, result) {
-      if (error) {
-        console.log(error);
-        ActiveEntry.errorMessages.set('signInError', error);
-      }
-      if (result) {
-        console.log('result', result);
-      }
-
-      var ActiveEntryConfig = Session.get('Photonic.ActiveEntry');
-      Router.go(ActiveEntryConfig.signUp.destination);
-    });
+    ActiveEntry.signUp(
+      newUser.email,
+      newUser.password,
+      newUser.confirm,
+      newUser.fullName
+    );
   }
 });

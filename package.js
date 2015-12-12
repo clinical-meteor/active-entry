@@ -1,6 +1,6 @@
 Package.describe({
   name: 'clinical:active-entry',
-  version: '1.4.2',
+  version: '1.4.3',
   summary: 'SignIn, SignUp, and ForgotPassword pages for Clinical Framework.',
   git: 'https://github.com/clinical-meteor/clinical-active-entry',
   documentation: 'README.md'
@@ -32,6 +32,8 @@ Package.onUse(function (api) {
     'lib/Accounts.js'
   ]);
 
+  api.imply('accounts-base');
+  api.imply('accounts-password');
 
   api.addFiles([
     'components/entryPages.js',
@@ -74,4 +76,5 @@ Package.onTest(function (api) {
   api.use('clinical:active-entry');
   api.use('clinical:verification');
   api.addFiles('tests/tinytest/clinical-entry-pages-tests.js');
+  api.addFiles('tests/gagarin/activeEntryTests.js');
 });
