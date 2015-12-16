@@ -1,6 +1,6 @@
 Package.describe({
   name: 'clinical:active-entry',
-  version: '1.4.3',
+  version: '1.4.4',
   summary: 'SignIn, SignUp, and ForgotPassword pages for Clinical Framework.',
   git: 'https://github.com/clinical-meteor/clinical-active-entry',
   documentation: 'README.md'
@@ -8,8 +8,6 @@ Package.describe({
 
 Package.onUse(function (api) {
   api.versionsFrom('1.1.0.3');
-
-  // api.use('photonic:glass-ui@0.2.4');
 
   api.use([
     'meteor-platform',
