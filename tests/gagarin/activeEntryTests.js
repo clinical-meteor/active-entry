@@ -5,10 +5,18 @@ describe('clinical:active-entry', function() {
   var client = browser(server);
 
   before(function () {
-    return client.execute(function () {
-      Meteor.users.find().forEach(function (user){
-        Meteor.users.remove({_id: user._id});
-      });
+    // return client.wait(500, 'until ActiveEntry is loaded...', function () {
+    //   Meteor.users.find().forEach(function (user){
+    //     Meteor.users.remove({_id: user._id});
+    //   });
+    // });
+    return server.execute(function (){
+      Meteor.users.drop();
+    });
+  });
+  afterEach(function (){
+    client.execute(function (){
+      Meteor.logout();
     });
   });
 
@@ -104,13 +112,36 @@ describe('clinical:active-entry', function() {
 
 
 
-  it("Newly created user  should have fullName(), preferredName(), and familyName() methods.", function () {
+  it("Newly created user should have fullName(), preferredName(), and familyName() methods.", function () {
     return server.execute(function () {
       var user = Meteor.users.findOne({'emails.address': 'janedoe@test.org'});
       expect(user).to.be.ok;
       expect(user.fullName()).to.equal('Jane Doe');
       expect(user.givenName()).to.equal('Jane');
       expect(user.familyName()).to.equal('Doe');
+    });
+  });
+  it("Newly created user can sign in to the application.", function () {
+    return client.execute(function () {
+      expect(Meteor.userId()).to.not.exist;
+      ActiveEntry.signIn('janedoe@test.org', 'janedoe123');
+    }).then(function (){
+      client.wait(1000, "for user to sign in", function (){
+        expect(Meteor.userId()).to.not.exist;
+      });
+    });
+  });
+  it("Newly created user can sign out of the application.", function () {
+    return client.execute(function () {
+      expect(Meteor.userId()).to.not.exist;
+      ActiveEntry.signIn('janedoe@test.org', 'janedoe123');
+    }).then(function (){
+      client.wait(1000, "for user to sign in", function (){
+        expect(Meteor.userId()).to.not.exist;
+        ActiveEntry.signOut('janedoe@test.org');
+      }).then(function (){
+        expect(Meteor.userId()).to.exist;
+      });
     });
   });
 
