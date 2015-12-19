@@ -136,7 +136,7 @@ describe('clinical:active-entry', function() {
       expect(Meteor.userId()).to.not.exist;
       ActiveEntry.signIn('janedoe@test.org', 'janedoe123');
     }).then(function (){
-      client.wait(1000, "for user to sign in", function (){
+      client.wait(2000, "for user to sign in", function (){
         expect(Meteor.userId()).to.not.exist;
         ActiveEntry.signOut('janedoe@test.org');
       }).then(function (){
