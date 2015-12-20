@@ -12,6 +12,7 @@ describe('clinical:active-entry', function () {
   afterEach(function (){
     client.execute(function (){
       Meteor.logout();
+      // Meteor.users.remove({});
     });
   });
 
@@ -114,6 +115,10 @@ describe('clinical:active-entry', function () {
       expect(user.fullName()).to.equal('Jane Doe');
       expect(user.givenName()).to.equal('Jane');
       expect(user.familyName()).to.equal('Doe');
+    }).then(function(){
+      client.wait(500, "until user is logged out", function(){
+        Meteor.logout();
+      });
     });
   });
   it("Newly created user can sign in to the application.", function () {
