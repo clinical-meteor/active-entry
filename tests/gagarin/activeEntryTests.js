@@ -5,13 +5,10 @@ describe('clinical:active-entry', function() {
   var client = browser(server);
 
   before(function () {
-    // return client.wait(500, 'until ActiveEntry is loaded...', function () {
-    //   Meteor.users.find().forEach(function (user){
-    //     Meteor.users.remove({_id: user._id});
-    //   });
-    // });
     return server.execute(function (){
-      Meteor.users.drop();
+      Meteor.users.find().forEach(function(user){
+        Meteor.users.remove({_id: user._id});
+      });
     });
   });
   afterEach(function (){
