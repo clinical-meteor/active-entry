@@ -1,14 +1,12 @@
 // var nightwatch = require('nightwatch');
 
-describe('clinical:active-entry', function() {
+describe('clinical:active-entry', function () {
   var server = meteor();
   var client = browser(server);
 
   before(function () {
     return server.execute(function (){
-      Meteor.users.find().forEach(function(user){
-        Meteor.users.remove({_id: user._id});
-      });
+      Meteor.users.remove({});
     });
   });
   afterEach(function (){
@@ -124,7 +122,7 @@ describe('clinical:active-entry', function() {
       ActiveEntry.signIn('janedoe@test.org', 'janedoe123');
     }).then(function (){
       client.wait(3000, "for user to sign in", function (){
-        expect(Meteor.userId()).to.not.exist;
+        expect(Meteor.userId()).to.exist;
       });
     });
   });
@@ -134,10 +132,10 @@ describe('clinical:active-entry', function() {
       ActiveEntry.signIn('janedoe@test.org', 'janedoe123');
     }).then(function (){
       client.wait(3000, "for user to sign in", function (){
-        expect(Meteor.userId()).to.not.exist;
+        expect(Meteor.userId()).to.exist;
         ActiveEntry.signOut('janedoe@test.org');
       }).then(function (){
-        expect(Meteor.userId()).to.exist;
+        expect(Meteor.userId()).to.not.exist;
       });
     });
   });
