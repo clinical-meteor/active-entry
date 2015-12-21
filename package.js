@@ -1,6 +1,6 @@
 Package.describe({
   name: 'clinical:active-entry',
-  version: '1.4.11',
+  version: '1.4.12',
   summary: 'SignIn, SignUp, and ForgotPassword pages for Clinical Framework.',
   git: 'https://github.com/clinical-meteor/clinical-active-entry',
   documentation: 'README.md'
@@ -12,7 +12,7 @@ Package.onUse(function (api) {
   api.use([
     'meteor-platform',
     'templating',
-    'clinical:router@2.0.13',
+    'clinical:router@2.0.17',
     'grove:less@0.1.1',
     'session',
     'reactive-dict',
