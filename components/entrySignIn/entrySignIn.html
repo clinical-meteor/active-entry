@@ -14,7 +14,7 @@
           <button id="logoutButton" type="submit" class="btn-primary btn-main">Logout</button>
         {{else}}
           <h1 id="signInPageTitle" class="title-auth">Sign In.</h1>
-          <p id="signInPageMessage" class="subtitle-auth" >Improve your clincal practice with checklists.</p>
+          <p id="signInPageMessage" class="subtitle-auth" style="{{getSignInMessageColor}}">{{getSignInMessage}}</p>
 
           <form>
             <div class="input-symbol">

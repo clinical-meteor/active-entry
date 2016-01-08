@@ -1,6 +1,6 @@
 Package.describe({
   name: 'clinical:active-entry',
-  version: '1.5.0',
+  version: '1.5.1',
   summary: 'SignIn, SignUp, and ForgotPassword pages for Clinical Framework.',
   git: 'https://github.com/clinical-meteor/clinical-active-entry',
   documentation: 'README.md'
@@ -52,13 +52,9 @@ Package.onUse(function (api) {
   ], ['client']);
 
 
-
+  api.addFiles('server/methods.js', "server", {testOnly: true});
 
   api.export("ActiveEntry");
-
-  api.export('entrySignIn');
-  api.export('entrySignUp');
-
 });
 
 

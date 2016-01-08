@@ -90,7 +90,11 @@ input, button, select{
       max-width: 480px;
       width: 80%;
     }
-
+    @media screen and (max-width: 480px) {
+      margin: 0 auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
     // .input-symbol{
     //   border: 1px solid gray;
     // }
@@ -102,7 +106,9 @@ input, button, select{
 
     .subtitle-auth {
       color: black;
-      margin: 0 15% 3rem;
+      //margin: 0 15% 3rem;
+      margin-bottom: 2rem;
+      padding: 15px;
     }
 
     form {
@@ -122,8 +128,8 @@ input, button, select{
         margin-top: 1em;
 
         @media screen and (min-width: 40em) {
-          margin-left: 0;
-          margin-right: 0;
+          // margin-left: 0;
+          // margin-right: 0;
           width: 100%;
         }
       }
@@ -154,9 +160,9 @@ input, button, select{
     }
   }
 
-  @media only screen and (max-width: 704px) {
-    .fa{
-      left: 5%;
-    }
-  }
+  // @media only screen and (max-width: 704px) {
+  //   .fa{
+  //     left: 5%;
+  //   }
+  // }
 }

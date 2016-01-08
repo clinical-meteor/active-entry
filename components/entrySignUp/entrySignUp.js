@@ -15,6 +15,20 @@ Router.route('/sign-up', {
 
 
 Template.entrySignUp.helpers({
+  getSignUpMessageColor: function (){
+    if (ActiveEntry.errorMessages.get('signInError')) {
+      return "color: #a94442; background-color: #f2dede; border-color: #ebccd1;"
+    } else {
+      return "color: black;"
+    }
+  },
+  getSignUpMessage: function (){
+    if (ActiveEntry.errorMessages.get('signInError')) {
+      return ActiveEntry.errorMessages.get('signInError');
+    } else {
+      return Session.get('defaultSignInMessage');
+    }
+  },
   getButtonText: function () {
     if (ActiveEntry.errorMessages.get('signInError')) {
       return ActiveEntry.errorMessages.get('signInError').message;
@@ -24,9 +38,9 @@ Template.entrySignUp.helpers({
   },
   getEmailStyling: function () {
     if (ActiveEntry.errorMessages.equals('email', "Email is required")) {
-      return "border: 1px solid red";
+      return "border: 1px solid #a94442";
     } else if (ActiveEntry.errorMessages.equals('email', "Email is poorly formatted")) {
-      return "border: 1px solid orange";
+      return "border: 1px solid #f2dede";
     } else if (ActiveEntry.errorMessages.equals('email', "Email present")) {
       return "border: 1px solid green";
     } else {
@@ -35,9 +49,9 @@ Template.entrySignUp.helpers({
   },
   getPasswordStyling: function () {
     if (ActiveEntry.errorMessages.equals('password', "Password is required")) {
-      return "border: 1px solid red";
+      return "border: 1px solid #a94442";
     } else if (ActiveEntry.errorMessages.equals('password', "Password is weak")) {
-      return "border: 1px solid orange";
+      return "border: 1px solid #f2dede";
     } else if (ActiveEntry.errorMessages.equals('password', "Password present")) {
       return "border: 1px solid green";
     } else {
@@ -46,9 +60,9 @@ Template.entrySignUp.helpers({
   },
   getConfirmPasswordStyling: function () {
     if (ActiveEntry.errorMessages.equals('confirm', "Password is required")) {
-      return "border: 1px solid red";
+      return "border: 1px solid #a94442";
     } else if (ActiveEntry.errorMessages.equals('confirm', "Password is weak")) {
-      return "border: 1px solid orange";
+      return "border: 1px solid #f2dede";
     } else if (ActiveEntry.errorMessages.equals('confirm', "Passwords match")) {
       return "border: 1px solid green";
     } else {
@@ -57,9 +71,9 @@ Template.entrySignUp.helpers({
   },
   getFullNameStyling: function () {
     if (ActiveEntry.errorMessages.equals('fullName', "Name is required")) {
-      return "border: 1px solid red";
+      return "border: 1px solid #a94442";
     } else if (ActiveEntry.errorMessages.equals('fullName', "Name is probably not complete")) {
-      return "border: 1px solid orange";
+      return "border: 1px solid #f2dede";
     } else if (ActiveEntry.errorMessages.equals('fullName', "Name present")) {
       return "border: 1px solid green";
     } else {

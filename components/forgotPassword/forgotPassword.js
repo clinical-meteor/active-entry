@@ -6,6 +6,11 @@ Router.route('/forgotPassword', {
 });
 
 
+Template.forgotPassword.helpers({
+  getForgotPasswordStyle: function (){
+    return "border: 1px solid gray";
+  }
+});
 
 Template.forgotPassword.events({
   "submit": function (event, template) {

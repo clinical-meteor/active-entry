@@ -1,4 +1,7 @@
 
+// REFACTOR:  Move to ActiveRecord object
+Session.set("defaultSignInMessage", "Improve your clincal practice with checklists.");
+
 //==================================================================================================
 // ROUTER
 
@@ -14,19 +17,37 @@ Router.route('/sign-in', {
 //==================================================================================================
 // COMPONENT OUTPUTS
 
+
+
+
 Template.entrySignIn.helpers({
-  getButtonText: function () {
-    if (ActiveEntry.errorMessages.get('signInError')){
-      return ActiveEntry.errorMessages.get('signInError').message;
+  getSignInMessageColor: function (){
+    if (ActiveEntry.errorMessages.get('signInError')) {
+      return "color: #a94442; background-color: #f2dede; border-color: #ebccd1;"
     } else {
-      return "Sign In";
+      return "color: black;"
     }
+  },
+  getSignInMessage: function (){
+    if (ActiveEntry.errorMessages.get('signInError')) {
+      return ActiveEntry.errorMessages.get('signInError');
+    } else {
+      return Session.get('defaultSignInMessage');
+    }
+  },
+  getButtonText: function () {
+    return "Sign In";
+    // if (ActiveEntry.errorMessages.get('signInError')){
+    //   return ActiveEntry.errorMessages.get('signInError');
+    // } else {
+    //   return "Sign In";
+    // }
   },
   getEmailValidationStyling: function () {
     if (ActiveEntry.errorMessages.equals('email', "Email is required")) {
-      return "border: 1px solid red";
+      return "border: 1px solid #a94442";
     } else if (ActiveEntry.errorMessages.equals('email', "Email is poorly formatted")) {
-      return "border: 1px solid orange";
+      return "border: 1px solid #f2dede";
     } else if (ActiveEntry.errorMessages.equals('email', "Email present")) {
       return "border: 1px solid green";
     } else {
@@ -35,9 +56,9 @@ Template.entrySignIn.helpers({
   },
   getPasswordValidationStyling: function () {
     if (ActiveEntry.errorMessages.equals('password', "Password is required")) {
-      return "border: 1px solid red";
+      return "border: 1px solid #a94442";
     } else if (ActiveEntry.errorMessages.equals('password', "Password is weak")) {
-      return "border: 1px solid orange";
+      return "border: 1px solid #f2dede";
     } else if (ActiveEntry.errorMessages.equals('password', "Password present")) {
       return "border: 1px solid green";
     } else {
@@ -86,18 +107,22 @@ Template.entrySignIn.events({
     ActiveEntry.verifyPassword(password);
     ActiveEntry.errorMessages.set('signInError', null);
   },
-  'submit': function (event, template) {
-    event.preventDefault();
-    var emailValue = template.$('[name=email]').val();
-    var passwordValue = template.$('[name=password]').val();
-
-    ActiveEntry.signIn(emailValue, passwordValue);
-  },
+  // 'submit': function (event, template) {
+  //   event.preventDefault();
+  //   var emailValue = template.$('[name=email]').val();
+  //   var passwordValue = template.$('[name=password]').val();
+  //
+  //   ActiveEntry.signIn(emailValue, passwordValue);
+  // },
   'click #signInToAppButton': function (event, template){
-    var emailValue = template.$('[name=email]').val();
-    var passwordValue = template.$('[name=password]').val();
+    console.log('click #signInToAppButton');
+    // var emailValue = template.$('[name=email]').val();
+    // var passwordValue = template.$('[name=password]').val();
+    var emailValue = template.$('#signInPageEmailInput').val();
+    var passwordValue = template.$('#signInPagePasswordInput').val();
 
     ActiveEntry.signIn(emailValue, passwordValue);
+    event.preventDefault();
   }
 });
 
