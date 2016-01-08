@@ -49,7 +49,7 @@ Template.entrySignUp.helpers({
       return "border: 1px solid red";
     } else if (ActiveEntry.errorMessages.equals('confirm', "Password is weak")) {
       return "border: 1px solid orange";
-    } else if (ActiveEntry.errorMessages.equals('confirm', "Password present")) {
+    } else if (ActiveEntry.errorMessages.equals('confirm', "Passwords match")) {
       return "border: 1px solid green";
     } else {
       return "border: 1px solid gray";
@@ -73,21 +73,23 @@ Template.entrySignUp.events({
     Router.go('/entrySignIn');
   },
   'change, keyup #signUpPageEmailInput': function (event, template) {
-    var email = template.$('[name="email"]').val();
+    var email = $('[name="email"]').val();
 
     ActiveEntry.verifyEmail(email);
     ActiveEntry.errorMessages.set('signInError', null);
   },
   'change, keyup #signUpPagePasswordInput': function (event, template) {
-    var password = template.$('[name="password"]').val();
+    var password = $('[name="password"]').val();
 
     ActiveEntry.verifyPassword(password);
     ActiveEntry.errorMessages.set('signInError', null);
   },
   'change, keyup #signUpPagePasswordConfirmInput': function (event, template) {
 
-    var password = template.$('[name="password"]').val();
-    var confirmPassword = template.$('[name="confirm"]').val();
+    var password = $('[name="password"]').val();
+    var confirmPassword = $('[name="confirm"]').val();
+    // var password = $('#signUpPagePasswordInput').val();
+    // var confirmPassword = $('#signUpPagePasswordConfirmInput').val();
 
     ActiveEntry.verifyConfirmPassword(password, confirmPassword);
     ActiveEntry.errorMessages.set('signInError', null);

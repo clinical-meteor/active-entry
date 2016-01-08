@@ -1,5 +1,14 @@
 exports.command = function (email, password, title, message) {
   this
+    // .verify.element("#entrySignIn").to.be.visible
+    // .verify.element("#signInPageTitle").to.be.visible
+    // .verify.element("#signInPageMessage").to.be.visible
+    // .verify.element("#signInPageEmailInput").to.be.visible
+    // .verify.element("#signInPagePasswordInput").to.be.visible
+    // .verify.element("#signInToAppButton").to.be.visible
+    // .verify.element("#needAnAccountButton").to.be.visible
+    //
+
     .verify.elementPresent("#entrySignIn")
     .verify.elementPresent("#signInPageTitle")
     .verify.elementPresent("#signInPageMessage")
