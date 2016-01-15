@@ -45,3 +45,8 @@ Template.registerHelper("logoUrl", function (argument){
     return "";
   }
 });
+
+
+Template.registerHelper("getButtonColor", function (argument){
+  return "background-color: " + Theme.getPaletteColor("colorB") + "; ";
+});
