@@ -2,6 +2,7 @@
 
 This package provides the SignIn, SignUp, and ForgotPassword pages.  
 
+[![Circle CI](https://circleci.com/gh/clinical-meteor/clinical-active-entry/tree/master.svg?style=svg)](https://circleci.com/gh/clinical-meteor/clinical-active-entry/tree/master)
 
 ===============================
 #### Installation
