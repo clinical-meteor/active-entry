@@ -87,13 +87,37 @@ MAIL_URL = 'smtp://sandboxid.mailgun.org:mypassword@smtp.mailgun.org:587' meteor
 ````
 
 ===============================
-### Quality Assurance
+### Local Development
+
+Simply clone the repository into your ``/packages`` directory.  You can also specify the packages you want to develop locally in your ``.git-packages.json`` file, and use starrynight to fetch them.
 
 ````bash
+# clone a single package into your application
+git clone http://github.com/clinical-meteor/clinical-active-entry packages/active-entry
+
+# fetch all the packages listed in git-packages.json
 starrynight fetch
-starrynight autoconfig
-starrynight run-tests --type verification
 ````
+
+===============================
+### Quality Assurance Testing
+
+There are two types of quality assurance tests you can run:  verification and validation tests.  Verification tests are similar to unit or integration tests; and can run either at the application or package level.  Validation tests are application-wide, but often require commands exposed in packages.  So you'll need to run the ``autoconfig`` command to scan the filesystem for validation commands.  See [http://starrynight.meteor.com/](http://starrynight.meteor.com/) for more details.
+
+````bash
+# install the testing utility
+npm install -g starrynight
+
+# verification testing (a.k.a. package-level unit/integration testing)
+starrynight run-tests --type package-verification
+
+#validation testing (a.k.a. application acceptance/end-to-end testing)
+starrynight autoscan
+starrynight run-tests --type validation
+````
+
+
+
 
 ===============================
 ### Licensing  
