@@ -4,15 +4,15 @@ describe('clinical:active-entry', function () {
   var server = meteor();
   var client = browser(server);
 
-  before(function () {
-    return server.promise(function (resolve){
-      Meteor.users.find().forEach(function(user){
-        Meteor.users.remove({_id: user._id});
-      }, function(){
-        resolve();
-      });
-    });
-  });
+  // before(function () {
+  //   return server.promise(function (resolve){
+  //     Meteor.users.find().forEach(function(user){
+  //       Meteor.users.remove({_id: user._id});
+  //     }, function(){
+  //       resolve();
+  //     });
+  //   });
+  // });
 
   afterEach(function (){
     return client.promise(function (resolve){
