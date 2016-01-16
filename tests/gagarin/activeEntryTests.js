@@ -5,14 +5,20 @@ describe('clinical:active-entry', function () {
   var client = browser(server);
 
   before(function () {
-    return server.execute(function (){
-      Meteor.users.remove({});
+    return server.promise(function (resolve){
+      Meteor.users.forEach(function(user){
+        Meteor.users.remove({_id: user._id});
+      }, function(){
+        resolve();
+      });
     });
   });
+
   afterEach(function (){
-    client.execute(function (){
-      Meteor.logout();
-      // Meteor.users.remove({});
+    return client.promise(function (resolve){
+      Meteor.logout(function(error, result){
+        resolve();
+      });
     });
   });
 
@@ -28,8 +34,8 @@ describe('clinical:active-entry', function () {
   });
 
   it("Error messages should be empty by default", function () {
-    return client.execute(function (a) {
-      expect(Session.get('errorMessage')).to.equal(false);
+    return client.execute(function () {
+      expect(ActiveEntry.errorMessages.get('signInError')).to.equal(false);
     });
   });
 
