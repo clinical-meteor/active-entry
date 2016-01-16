@@ -30,7 +30,7 @@ dependencies:
   override:
     - meteor || curl https://install.meteor.com | /bin/sh
     - npm install starrynight -g
-    - meteor create --release METEOR@1.1.03 helloworld
+    - meteor create --release METEOR@1.1.0.3 helloworld
     - cd hellworld
     - rm hellworld.*
     - meteor add anti:gagarin@0.4.11
