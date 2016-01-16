@@ -34,13 +34,7 @@ dependencies:
     - cd helloworld
     - cd helloworld && ls -la
     - cd helloworld && rm helloworld.*
-    - cd helloworld && meteor add anti:gagarin@0.4.11
-    - cd helloworld && meteor add accounts-base
-    - cd helloworld && meteor add accounts-password
-    - cd helloworld && meteor add session
-    - cd helloworld && meteor add meteor-platform
-    - cd helloworld && meteor add clinical:active-entry
-    - cd helloworld && meteor add clinical:user-model
+    - cd helloworld && meteor add anti:gagarin@0.4.11 accounts-base accounts-password session meteor-platform clinical:active-entry clinical:user-model
     - cd helloworld && git clone http://github.com/clinical-meteor/clinical-active-entry packages/active-entry
     - cd helloworld && starrynight autoconfig
 

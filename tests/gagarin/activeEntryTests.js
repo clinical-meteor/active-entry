@@ -6,7 +6,7 @@ describe('clinical:active-entry', function () {
 
   before(function () {
     return server.promise(function (resolve){
-      Meteor.users.forEach(function(user){
+      Meteor.users.find().forEach(function(user){
         Meteor.users.remove({_id: user._id});
       }, function(){
         resolve();
