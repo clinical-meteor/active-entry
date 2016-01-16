@@ -116,8 +116,10 @@ starrynight autoscan
 starrynight run-tests --type validation
 ````
 
+===============================
+### Contributing
 
-
+See our [notes on contributing](https://github.com/clinical-meteor/clinical-active-entry/blob/master/Contributing.md).
 
 ===============================
 ### Licensing  
