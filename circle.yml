@@ -31,10 +31,6 @@ dependencies:
     - meteor || curl https://install.meteor.com | /bin/sh
     - npm install starrynight -g
     - meteor list
-
-## Customize test commands
-test:
-  pre:
     - meteor create --release METEOR@1.1.03 helloworld
     - cd hellworld
     - rm hellworld.*
@@ -46,6 +42,10 @@ test:
     - meteor add clinical:active-entry
     - meteor add clinical:user-model
     - git clone http://github.com/clinical-meteor/clinical-active-entry packages/active-entry
+
+## Customize test commands
+test:
+  pre:
     - starrynight autoconfig
     - meteor:
           background: true
