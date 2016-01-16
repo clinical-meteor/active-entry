@@ -33,7 +33,7 @@ dependencies:
     - meteor create --release METEOR@1.1.0.3 helloworld
     - cd helloworld
     - cd helloworld && ls -la
-    - cd helloworld && rm hellworld.*
+    - cd helloworld && rm helloworld.*
     - cd helloworld && meteor add anti:gagarin@0.4.11
     - cd helloworld && meteor add accounts-base
     - cd helloworld && meteor add accounts-password
