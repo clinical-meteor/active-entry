@@ -19,8 +19,8 @@ checkout:
    #- git submodule sync
    #- git submodule update --init --recursive # use submodules
 
-general:
-  build_dir: helloworld
+#general:
+#  build_dir: helloworld
 
 ## Customize dependencies
 dependencies:
@@ -31,10 +31,7 @@ dependencies:
     - meteor || curl https://install.meteor.com | /bin/sh
     - npm install starrynight -g
     - meteor create --release METEOR@1.1.0.3 helloworld
-
-## Customize test commands
-test:
-  pre:
+    - cd helloworld
     - rm hellworld.*
     - meteor add anti:gagarin@0.4.11
     - meteor add accounts-base
@@ -45,6 +42,11 @@ test:
     - meteor add clinical:user-model
     - git clone http://github.com/clinical-meteor/clinical-active-entry packages/active-entry
     - starrynight autoconfig
+
+## Customize test commands
+test:
+  pre:
+    - cd helloworld
     - meteor:
           background: true
     - sleep 60
