@@ -9,7 +9,7 @@
 
         {{#if isLoggedIn}}
           <h1 id="signInPageTitle" class="title-auth">{{fullName}}</h1>
-          <p id="signInPageMessage" class="subtitle-auth">You are currently signed in.</p>
+          <div id="signInPageMessage" class="subtitle-auth">You are currently signed in.</div>
 
           <button id="logoutButton" type="submit" class="btn-primary btn-main">Logout</button>
         {{else}}
@@ -28,12 +28,12 @@
               <span class="fa fa-lock" title="Password"></span>
             </div>
 
-            <button id="signInToAppButton" type="submit" class="btn-primary btn-main" style="{{getButtonColor}}">{{getButtonText}}</button>
+            <button id="signInToAppButton" type="submit" class="btn-primary btn-main btn-large" style="{{getButtonColor}}">{{getButtonText}}</button>
             <br>
             <br>
 
-            <button id="needAnAccountButton" class="btn-gray btn-main">Need an account?</button><br><br>
-            <button id="forgotPasswordButton" class="btn-gray btn-main">Forgot password?</button>
+            <button id="needAnAccountButton" class="btn-gray btn-main btn-large">Need an account?</button><br><br>
+            <button id="forgotPasswordButton" class="btn-gray btn-main btn-large">Forgot password?</button>
           </form>
         {{/if}}
       </div>

@@ -8,7 +8,7 @@
         {{/if}}
 
         <h1 id="signUpPageTitle" class="title-auth">Join.</h1>
-        <p id="signUpPageMessage" class="subtitle-auth" style="{{getSignUpMessageColor}}">{{getSignUpMessage}}</p>
+        <div id="signUpPageMessage" class="subtitle-auth" style="{{getSignUpMessageColor}}">{{getSignUpMessage}}</div>
 
         <form>
           {{#if errorMessages}}
@@ -47,11 +47,11 @@
             <!-- <span class="icon-lock" title="Confirm Password"></span> -->
           </div>
 
-          <button id="signUpPageJoinNowButton" type="submit" class="btn-primary btn-main" style="{{getButtonColor}}">Join Now</button>
+          <button id="signUpPageJoinNowButton" type="submit" class="btn-primary btn-main btn-large" style="{{getButtonColor}}">Join Now</button>
           <br>
           <br>
 
-          <button id="signUpPageSignInButton" class="btn-gray btn-main">Have an account? Sign in</button>
+          <button id="signUpPageSignInButton" class="btn-gray btn-main btn-large">Have an account? Sign in</button>
 
         </form>
       </div>
