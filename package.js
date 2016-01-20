@@ -69,6 +69,5 @@ Package.onTest(function (api) {
   api.use('tinytest');
   api.use('clinical:active-entry');
   api.use('clinical:verification');
-  api.addFiles('tests/tinytest/clinical-entry-pages-tests.js');
   api.addFiles('tests/gagarin/activeEntryTests.js');
 });
