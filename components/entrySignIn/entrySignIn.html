@@ -11,7 +11,7 @@
           <h1 id="signInPageTitle" class="title-auth">{{fullName}}</h1>
           <div id="signInPageMessage" class="subtitle-auth">You are currently signed in.</div>
 
-          <button id="logoutButton" type="submit" class="btn-primary btn-main">Logout</button>
+          <button id="logoutButton" class="btn-primary btn-main btn-large" style="{{getButtonColor}}">Logout</button>
         {{else}}
           <h1 id="signInPageTitle" class="title-auth">Sign In.</h1>
           <p id="signInPageMessage" class="subtitle-auth" style="{{getSignInMessageColor}}">{{getSignInMessage}}</p>
