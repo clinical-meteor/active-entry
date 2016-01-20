@@ -1,6 +1,6 @@
 Package.describe({
   name: 'clinical:active-entry',
-  version: '1.5.10',
+  version: '1.5.11',
   summary: 'SignIn, SignUp, and ForgotPassword pages for Clinical Framework.',
   git: 'https://github.com/clinical-meteor/clinical-active-entry',
   documentation: 'README.md'

@@ -76,12 +76,12 @@ Template.entrySignIn.events({
     Meteor.logout();
   },
   'click #forgotPasswordButton': function (event) {
+    event.preventDefault();
     Router.go('/forgotPassword');
-    event.preventDefault();
   },
-  "click #needAnAccountButton": function () {
-    Router.go('/entrySignUp');
+  "click #needAnAccountButton": function (event) {
     event.preventDefault();
+    Router.go('/entrySignUp');
   },
   'keyup input[name="email"]': function (event, template) {
     var email = $('input[name="email"]').val();
