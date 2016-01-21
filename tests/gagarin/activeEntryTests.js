@@ -14,13 +14,13 @@ describe('clinical:active-entry', function () {
   //   });
   // });
 
-  afterEach(function (){
-    return client.promise(function (resolve){
-      Meteor.logout(function(error, result){
-        resolve();
-      });
-    });
-  });
+  // afterEach(function (){
+  //   return client.promise(function (resolve){
+  //     Meteor.logout(function(error, result){
+  //       resolve();
+  //     });
+  //   });
+  // });
 
 
   it("ActiveEntry object should be loaded on client and server", function () {
@@ -122,9 +122,15 @@ describe('clinical:active-entry', function () {
       expect(user.givenName()).to.equal('Jane');
       expect(user.familyName()).to.equal('Doe');
     }).then(function(){
-      client.wait(500, "until user is logged out", function(){
-        Meteor.logout();
+      // client.wait(500, "until user is logged out", function(){
+      //   Meteor.logout();
+      // });
+      return client.promise(function (resolve){
+        Meteor.logout(function(error, result){
+          resolve();
+        });
       });
+
     });
   });
   it("Newly created user can sign in to the application.", function () {
