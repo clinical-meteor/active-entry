@@ -115,7 +115,7 @@ Template.entrySignUp.events({
     ActiveEntry.errorMessages.set('signInError', null);
   },
   // TODO:  this is outdated, and should be changed to match the signature/pattern in entrySignIn
-  'submit': function (event, template) {
+  'click #signUpPageJoinNowButton': function (event, template) {
     event.preventDefault();
 
     ActiveEntry.errorMessages.set('signInError', null);
