@@ -83,7 +83,8 @@ Template.entrySignUp.helpers({
 });
 
 Template.entrySignUp.events({
-  "click #signUpPageSignInButton": function () {
+  "click #signUpPageSignInButton": function (event) {
+    event.preventDefault();
     Router.go('/entrySignIn');
   },
   'change, keyup #signUpPageEmailInput': function (event, template) {
