@@ -2,7 +2,7 @@
 
 This package provides the SignIn, SignUp, and ForgotPassword pages.  
 
-[![Circle CI](https://circleci.com/gh/clinical-meteor/clinical-active-entry/tree/master.svg?style=svg)](https://circleci.com/gh/clinical-meteor/clinical-active-entry/tree/master)
+[![Circle CI](https://circleci.com/gh/clinical-meteor/active-entry/tree/master.svg?style=svg)](https://circleci.com/gh/clinical-meteor/active-entry/tree/master)
 
 ===============================
 #### Installation
@@ -16,7 +16,7 @@ meteor add clinical:active-entry
 
 The following diagram represents the entry workflow that is being implemented in this package.  This package is under active development, and is about half completed.  Pull requests which help implement the following workflow will be fast-tracked and accepted into the package.
 
-![entry-workflow](https://raw.githubusercontent.com/clinical-meteor/clinical-active-entry/master/docs/Entry%20Workflow.png)
+![entry-workflow](https://raw.githubusercontent.com/clinical-meteor/active-entry/master/docs/Entry%20Workflow.png)
 
 
 
