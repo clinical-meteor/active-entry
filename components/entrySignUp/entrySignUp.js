@@ -17,9 +17,9 @@ Router.route('/sign-up', {
 Template.entrySignUp.helpers({
   getSignUpMessageColor: function (){
     if (ActiveEntry.errorMessages.get('signInError')) {
-      return "color: #a94442; background-color: #f2dede; border-color: #ebccd1;"
+      return "color: #a94442; background-color: #f2dede; border-color: #ebccd1;";
     } else {
-      return "color: black;"
+      return "color: black;";
     }
   },
   getSignUpMessage: function (){
@@ -115,25 +115,13 @@ Template.entrySignUp.events({
     ActiveEntry.verifyFullName(fullName);
     ActiveEntry.errorMessages.set('signInError', null);
   },
-  // TODO:  this is outdated, and should be changed to match the signature/pattern in entrySignIn
   'click #signUpPageJoinNowButton': function (event, template) {
-    event.preventDefault();
-
-    ActiveEntry.errorMessages.set('signInError', null);
-    ActiveEntry.verifyPassword(event, template);
-
-    var newUser = {
-      fullName: template.$('[name="fullName"]').val(),
-      email: template.$('[name="email"]').val(),
-      password: template.$('[name="password"]').val(),
-      confirm: template.$('[name="confirm"]').val()
-    };
 
     ActiveEntry.signUp(
-      newUser.email,
-      newUser.password,
-      newUser.confirm,
-      newUser.fullName
+      $('#signUpPageEmailInput').val(),
+      $('#signUpPagePasswordInput').val(),
+      $('#signUpPagePasswordConfirmInput').val(),
+      $('#signUpPageFullNameInput').val()
     );
   }
 });

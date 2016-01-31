@@ -111,6 +111,9 @@ npm install -g starrynight
 # verification testing (a.k.a. package-level unit/integration testing)
 starrynight run-tests --type package-verification
 
+#to run validation tests, you'll need an ``.initializeUsers()`` function
+meteor add clinical:accounts-housemd
+
 #validation testing (a.k.a. application acceptance/end-to-end testing)
 starrynight autoscan
 starrynight run-tests --type validation
