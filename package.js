@@ -17,7 +17,8 @@ Package.onUse(function (api) {
     'session',
     'reactive-dict',
     'accounts-base',
-    'accounts-password'
+    'accounts-password',
+    'codetheweb:zxcvbn'
   ], ['client']);
 
   api.use([
@@ -29,6 +30,11 @@ Package.onUse(function (api) {
     'lib/ActiveEntry.js',
     'lib/Accounts.js'
   ]);
+
+  api.addFiles([
+    'lib/jquery.pwstrength.bootstrap.js',
+    'lib/validatePassword.js'
+  ], ['client']);
 
   api.imply('accounts-base');
   api.imply('accounts-password');
