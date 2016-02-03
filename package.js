@@ -26,6 +26,10 @@ Package.onUse(function (api) {
     'accounts-password'
   ], ['server']);
 
+  api.use([
+    'zuuk:stale-session@1.0.8'
+  ], ['client', 'server']);
+
   api.addFiles([
     'lib/ActiveEntry.js',
     'lib/Accounts.js'
