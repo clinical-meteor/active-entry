@@ -50,7 +50,7 @@ dependencies:
     - cd helloworld && git clone http://github.com/clinical-meteor/clinical-active-entry packages/active-entry
     - cd helloworld && meteor add anti:gagarin@0.4.11 accounts-base accounts-password session meteor-platform clinical:user-model clinical:active-entry
     - cd helloworld && starrynight autoconfig
-    - meteor list
+    - cd helloworld && meteor list
     - cat tests/gagarin/activeEntryTests.js
 
 ## Customize test commands
