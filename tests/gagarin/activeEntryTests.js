@@ -72,7 +72,7 @@ describe('clinical:active-entry', function () {
   it('Password match confirms that two passwords are the same.', function () {
     return client.execute(function (a) {
       ActiveEntry.verifyConfirmPassword('kittens123', '');
-      expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Password is required");
+      expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Password do not match");
 
       ActiveEntry.verifyConfirmPassword('kittens123', 'kittens');
       expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Passwords do not match");
