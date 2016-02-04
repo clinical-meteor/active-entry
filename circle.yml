@@ -52,6 +52,8 @@ dependencies:
     - cd helloworld && starrynight autoconfig
     - cd helloworld && meteor list
     - cat tests/gagarin/activeEntryTests.js
+    - ls -la
+    - cd ~ && ls -la
 
 ## Customize test commands
 test:
