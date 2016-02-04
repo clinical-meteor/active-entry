@@ -49,6 +49,10 @@ Package.onUse(function (api) {
     'components/forgotPassword/forgotPassword.js',
     'components/forgotPassword/forgotPassword.less',
 
+    'components/changePassword/changePassword.html',
+    'components/changePassword/changePassword.js',
+    'components/changePassword/changePassword.less',
+
   ], ['client']);
 
 
