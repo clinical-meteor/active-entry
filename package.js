@@ -37,7 +37,7 @@ Package.onUse(function (api) {
 
   api.addFiles([
     'lib/jquery.pwstrength.bootstrap.js',
-    'lib/validatePassword.js'
+    'lib/checkPasswordStrength.js'
   ], ['client']);
 
   api.imply('accounts-base');
