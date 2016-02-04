@@ -75,7 +75,7 @@ describe('clinical:active-entry', function () {
       expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Password is required");
 
       ActiveEntry.verifyConfirmPassword('kittens123', 'kittens');
-      expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Password is weak");
+      expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Passwords do not match");
 
       ActiveEntry.verifyConfirmPassword('kittens123', 'kittens123');
       expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Passwords match");
