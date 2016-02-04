@@ -61,6 +61,8 @@ Template.entrySignUp.helpers({
   getConfirmPasswordStyling: function () {
     if (ActiveEntry.errorMessages.equals('confirm', "Password is required")) {
       return "border: 1px solid #a94442";
+    } else if (ActiveEntry.errorMessages.equals('confirm', "Passwords do not match")) {
+      return "border: 1px solid #a94442";
     } else if (ActiveEntry.errorMessages.equals('confirm', "Password is weak")) {
       return "border: 1px solid #f2dede";
     } else if (ActiveEntry.errorMessages.equals('confirm', "Passwords match")) {
