@@ -54,6 +54,8 @@ dependencies:
     - cat tests/gagarin/activeEntryTests.js
     - ls -la
     - cd ~ && ls -la
+    - cd ${HOME} && pwd
+    - cd ${HOME} && ls -la
 
 ## Customize test commands
 test:
