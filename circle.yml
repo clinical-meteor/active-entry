@@ -68,7 +68,7 @@ test:
           background: true
     - sleep 30
   override:
-    - cd ${HOME}/helloworld && starrynight run-tests --type validation --env travis
+    - cd ../helloworld && starrynight run-tests --type validation --env travis
     - cd ${HOME}/helloworld && starrynight run-tests --type package-verification
 
 ## Customize deployment commands
