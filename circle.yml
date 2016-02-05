@@ -66,6 +66,19 @@ test:
   pre:
     - cd helloworld && meteor:
           background: true
-    - sleep 45
+    - sleep 30
   override:
     - cd ${HOME}/helloworld && starrynight run-tests --type package-verification
+
+## Customize deployment commands
+#deployment:
+#  production:
+#    branch: master
+#    commands:
+#      - printf "<Meteor username>\n<Meteor password>\n" | meteor deploy circlecivelocity.meteor.com
+
+## Custom notifications
+#notify:
+  #webhooks:
+    # A list of hashes representing hooks. Only the url field is supported.
+    #- url: https://someurl.com/hooks/circle
