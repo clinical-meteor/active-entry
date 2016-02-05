@@ -60,7 +60,7 @@ dependencies:
     - cd ${HOME} && pwd
     - cd ${HOME} && ls -la
     - cd ${HOME}/helloworld && ls -la
-    - cd ${HOME}/helloworld && starrynight generate --framework nightwatch
+    - cd ${HOME}/helloworld && starrynight scaffold --framework nightwatch
     - cp tests/nightwatch/walkthroughs/ActiveEntry.tests.js ${HOME}/helloworld/tests/nightwatch/walkthroughs
 
 ## Customize test commands
