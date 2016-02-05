@@ -64,7 +64,7 @@ dependencies:
 ## Customize test commands
 test:
   pre:
-    - cd helloworld && meteor:
+    - cd ${HOME}/helloworld && meteor:
           background: true
     - sleep 30
   override:
