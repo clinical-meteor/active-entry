@@ -52,7 +52,7 @@ dependencies:
     - cd ${HOME}/helloworld && mkdir packages && mkdir packages/active-entry
     - cd ${HOME}/helloworld/packages && git clone http://github.com/awatson1978/accounts-housemd
     - cp -R * ${HOME}/helloworld/packages/active-entry
-    - cd ${HOME}/helloworld && meteor add anti:gagarin@0.4.11 accounts-base accounts-password session meteor-platform clinical:user-model clinical:active-entry clinical:active-users
+    - cd ${HOME}/helloworld && meteor add anti:gagarin@0.4.11 accounts-base accounts-password session meteor-platform clinical:user-model clinical:active-entry clinical:active-users clinical:accounts-housemd
     - cd ${HOME}/helloworld && starrynight autoconfig
     - cd ${HOME}/helloworld && meteor list
     - cat tests/gagarin/activeEntryTests.js
