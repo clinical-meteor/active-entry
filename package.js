@@ -16,15 +16,13 @@ Package.onUse(function (api) {
     'grove:less@0.1.1',
     'session',
     'reactive-dict',
-    'accounts-base',
-    'accounts-password',
     //'codetheweb:zxcvbn'
   ], ['client']);
 
   api.use([
     'accounts-base',
     'accounts-password'
-  ], ['server']);
+  ]);
 
   api.use([
     'zuuk:stale-session@1.0.8'
