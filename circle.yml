@@ -14,6 +14,16 @@ machine:
     DISPLAY: :99.0
     NPM_PREFIX: /home/ubuntu/nvm/v0.10.33
 
+
+## Customize checkout
+checkout:
+ post:
+   #- git submodule sync
+   #- git submodule update --init --recursive # use submodules
+
+#general:
+#  build_dir: helloworld
+
 ## Customize dependencies
 dependencies:
   cache_directories:
@@ -56,6 +66,6 @@ test:
   pre:
     - cd helloworld && meteor:
           background: true
-    - sleep 30
+    - sleep 45
   override:
     - cd ${HOME}/helloworld && starrynight run-tests --type package-verification
