@@ -60,16 +60,17 @@ dependencies:
     - cd ${HOME} && pwd
     - cd ${HOME} && ls -la
     - cd ${HOME}/helloworld && ls -la
+    - mv ${HOME}/helloworld ${HOME}/active-entry
 
 ## Customize test commands
 test:
   pre:
-    - cd ../helloworld && meteor:
+    - cd helloworld && meteor:
           background: true
     - sleep 30
   override:
-    - cd ../helloworld && starrynight run-tests --type validation --env travis
-    - cd ${HOME}/helloworld && starrynight run-tests --type package-verification
+    - cd helloworld && starrynight run-tests --type validation --env travis
+    - cd helloworld && starrynight run-tests --type package-verification
 
 ## Customize deployment commands
 #deployment:
