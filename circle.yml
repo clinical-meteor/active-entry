@@ -56,6 +56,8 @@ dependencies:
     - cd ~ && ls -la
     - cd ${HOME} && pwd
     - cd ${HOME} && ls -la
+    - cd ${HOME}/active-entry && ls -la
+    - cd ${HOME}/helloworld && ls -la
 
 ## Customize test commands
 test:
