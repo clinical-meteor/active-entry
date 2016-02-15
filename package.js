@@ -16,12 +16,9 @@ Package.onUse(function (api) {
     'grove:less@0.1.1',
     'session',
     'reactive-dict',
-    //'codetheweb:zxcvbn'
-  ], ['client']);
-
-  api.use([
     'accounts-base',
     'accounts-password'
+    //'codetheweb:zxcvbn'
   ]);
 
   api.use([

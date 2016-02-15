@@ -23,7 +23,7 @@ describe('clinical:active-entry', function () {
   // });
 
 
-  it("ActiveEntry object should be loaded on client and server", function () {
+  it("should be loaded on client and server", function () {
     return server.execute(function () {
       expect(ActiveEntry.isAbc()).to.equal('abc');
     }).then(function (data){
@@ -33,14 +33,14 @@ describe('clinical:active-entry', function () {
     });
   });
 
-  it("Error messages should be empty by default", function () {
+  it("has empty error messages by default", function () {
     return client.execute(function () {
       expect(ActiveEntry.errorMessages.get('signInError')).to.equal(false);
     });
   });
 
   // ActiveEntry.verifyEmail
-  it('Email validation confirms it is a properly formatted email.', function () {
+  it('confirms it is a properly formatted email.', function () {
     return client.execute(function (a) {
       ActiveEntry.verifyEmail('janedoe@somewhere.com');
       expect(ActiveEntry.successMessages.get('email')).to.equal("Email present");
@@ -54,8 +54,7 @@ describe('clinical:active-entry', function () {
   });
 
 
-  // ActiveEntry.verifyPassword
-  it('Password validation confirms it is a properly formatted password.', function () {
+  it('confirms it is a properly formatted password.', function () {
     return client.execute(function (a) {
       ActiveEntry.verifyPassword('');
       expect(ActiveEntry.errorMessages.get('password')).to.equal("Password is required");
@@ -68,21 +67,42 @@ describe('clinical:active-entry', function () {
     });
   });
 
-  // ActiveEntry.verifyConfirmPassword
-  it('Password match confirms that two passwords are the same.', function () {
+  it('confirms password exists.', function () {
     return client.execute(function (a) {
-      ActiveEntry.verifyConfirmPassword('K1tt#kittens', 'kittens');
-      expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Passwords do not match");
+      ActiveEntry.verifyConfirmPassword('kittens123', '');
+      expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Password is required");
+    });
+  });
 
+  it('confirms matching passwords are the same.', function () {
+    return client.execute(function (a) {
+      ActiveEntry.reset();
       ActiveEntry.verifyConfirmPassword('kittens123', 'kittens');
       expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Passwords do not match");
 
+      ActiveEntry.reset();
       ActiveEntry.verifyConfirmPassword('kittens123', 'kittens123');
-      expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Passwords match");
+      expect(ActiveEntry.successMessages.get('confirm')).to.equal("Passwords match");
+    });
+  });
 
+  // it('can be configured to require strong passwords.', function () {
+  //   return client.execute(function (a) {
+  //     ActiveEntry.reset();
+  //     ActiveEntry.verifyConfirmPassword('kittens123', 'kittens123');
+  //     expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Passwords is not strong");
+  //   });
+  // });
+
+  it('confirms that two strong passwords are the same.', function () {
+    return client.execute(function (a) {
+      ActiveEntry.reset();
+      ActiveEntry.verifyConfirmPassword('K1tt#kittens', 'kittens');
+      expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Passwords do not match");
+
+      ActiveEntry.reset();
       ActiveEntry.verifyConfirmPassword('K1tt#ns123', 'K1tt#ns123');
       expect(ActiveEntry.successMessages.get('confirm')).to.equal("Passwords match");
-
     });
   });
 
@@ -115,8 +135,10 @@ describe('clinical:active-entry', function () {
   //     });
   //   });
   // });
+
+
   // ActiveEntry.signIn
-  it('Newly created user record should have role, profile, and name set.', function () {
+  it('creates a newly user record with role, profile, and name set.', function () {
     return client.execute(function () {
       // ActiveEntry.signUp('janedoe@test.org', 'Janed*e123', 'Janed*e123', 'Jane Doe');
       ActiveEntry.signUp('janedoe@test.org', 'Janedoe123', 'Janedoe123', 'Jane Doe');
@@ -132,7 +154,7 @@ describe('clinical:active-entry', function () {
   });
 
 
-  it("Newly created user should have fullName(), preferredName(), and familyName() methods.", function () {
+  it("creates a new user record with fullName(), preferredName(), and familyName() methods.", function () {
     return server.execute(function () {
       var user = Meteor.users.findOne({'emails.address': 'janedoe@test.org'});
       expect(user).to.be.ok;
