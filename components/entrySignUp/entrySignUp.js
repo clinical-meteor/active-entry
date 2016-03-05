@@ -58,6 +58,10 @@ Template.entrySignUp.helpers({
       return "border: 1px solid gray";
     }
   },
+
+  // TODO:  this needs to change
+  // confirm password is all-or-nothing
+  // so it shouldn't be checking for whether the password is weak
   getConfirmPasswordStyling: function () {
     if (ActiveEntry.errorMessages.equals('confirm', "Password is required")) {
       return "border: 1px solid #a94442";

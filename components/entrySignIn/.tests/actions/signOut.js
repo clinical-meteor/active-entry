@@ -1,6 +1,6 @@
 exports.command = function (fullname) {
   this
-    .sectionBreak(".signOut()");
+    //.sectionBreak(".signOut()");
 
   if (fullname) {
     this
