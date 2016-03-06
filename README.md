@@ -1,6 +1,6 @@
 ## clinical:active-entry
 
-This package provides the SignIn, SignUp, and ForgotPassword pages.  
+This package provides the SignIn, SignUp, ForgotPassword, ChangePassword, and Logout pages.  
 
 [![Circle CI](https://circleci.com/gh/clinical-meteor/active-entry/tree/master.svg?style=svg)](https://circleci.com/gh/clinical-meteor/active-entry/tree/master)
 
