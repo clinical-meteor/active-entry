@@ -12,6 +12,11 @@ meteor add clinical:active-entry
 ````
 
 ===============================
+#### Entry Workflow States
+
+![Entry Workflow](https://raw.githubusercontent.com/clinical-meteor/active-entry/master/docs/Entry.png)
+
+===============================
 #### Entry Flowchart
 
 The following diagram represents the entry workflow that is being implemented in this package.  This package is under active development, and is about half completed.  Pull requests which help implement the following workflow will be fast-tracked and accepted into the package.
@@ -27,6 +32,7 @@ The following diagram represents the entry workflow that is being implemented in
 /entrySignIn
 /entrySignUp
 /forgotPassword
+/changePassword
 ````
 
 ===============================
@@ -36,6 +42,7 @@ The following diagram represents the entry workflow that is being implemented in
 {{> entrySignIn }}
 {{> entrySignUp }}
 {{> forgotPassword }}
+{{> changePassword }}
 ````
 
 
