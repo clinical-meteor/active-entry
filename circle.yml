@@ -41,24 +41,34 @@ dependencies:
     # Link the meteor executable into /usr/bin
     - sudo ln -s $HOME/.meteor/meteor /usr/bin/meteor
     # Check if the helloworld directory already exists, if it doesn't, create the helloworld app
-    - if [ ! -e ${HOME}/helloworld ]; then meteor create --release METEOR@1.1.0.3 helloworld; else echo "helloworld app seems to be cached"; fi;
+    # The following doesn't work, because it should be checking ${HOME}/active-entry/helloworld
+    # - if [ ! -e ${HOME}/helloworld ]; then meteor create --release METEOR@1.1.0.3 helloworld; else echo "helloworld app seems to be cached"; fi;
 
   override:
-    - cd helloworld
-    - cd helloworld && ls -la
-    - cd helloworld && rm helloworld.*
-    - cd helloworld && meteor add anti:gagarin@0.4.11 accounts-base accounts-password session meteor-platform clinical:active-entry clinical:user-model
-    - cd helloworld && git clone http://github.com/clinical-meteor/clinical-active-entry packages/active-entry
-    - cd helloworld && starrynight autoconfig
+    - cd ${HOME} && meteor create --release METEOR@1.1.0.3 helloworld
+    - cd ${HOME}/helloworld
+    - cd ${HOME}/helloworld && ls -la
+    - cd ${HOME}/helloworld && rm helloworld.*
+    - cd ${HOME}/helloworld && mkdir packages && mkdir packages/active-entry
+    - cp -R * ${HOME}/helloworld/packages/active-entry
+    - cd ${HOME}/helloworld && meteor add anti:gagarin@0.4.11 accounts-base accounts-password session meteor-platform clinical:user-model clinical:active-entry
+    - cd ${HOME}/helloworld && starrynight autoconfig
+    - cd ${HOME}/helloworld && meteor list
+    - cat tests/gagarin/activeEntryTests.js
+    - ls -la
+    - cd ~ && ls -la
+    - cd ${HOME} && pwd
+    - cd ${HOME} && ls -la
+    - cd ${HOME}/helloworld && ls -la
 
 ## Customize test commands
 test:
   pre:
     - cd helloworld && meteor:
           background: true
-    - sleep 80
+    - sleep 30
   override:
-    - cd helloworld && starrynight run-tests --type package-verification
+    - cd ${HOME}/helloworld && starrynight run-tests --type package-verification
 
 ## Customize deployment commands
 #deployment:

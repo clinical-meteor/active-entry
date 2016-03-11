@@ -9,7 +9,6 @@ exports.command = function (email, password) {
       .setValue("#signInPageEmailInput", email);
   }
 
-
   if (password) {
     this
       .verify.elementPresent("#signInPagePasswordInput")

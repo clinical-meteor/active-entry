@@ -15,6 +15,7 @@
 // existing user should be able to sign in on desktop
 // existing user should be able to sign in on tablet
 // existing user should be able to sign in on phone
+// existing user should be able to change their password
 // company logo should display on sign//in page
 
 
@@ -40,7 +41,7 @@ module.exports = {
   "company logo should display on sign-in page": function (client) {
     client
       .verify.elementPresent("#entrySignUp")
-      .verify.elementPresent("#entryAppLogo");
+      // .verify.elementPresent("#entryAppLogo");
   },
   "user should be able to request be able to create new account": function (client) {
     client.verify.elementPresent("#signUpPageEmailInput")
@@ -48,7 +49,7 @@ module.exports = {
       .verify.elementPresent("#signUpPagePasswordInput")
       .verify.elementPresent("#signUpPageJoinNowButton");
   },
-
+  // confirm password is an all-or-nothing check, so we don't use the in-between-color
   "guest should be notified if password is insecure": function (client) {
     client
       .clearValue("input")
@@ -56,15 +57,18 @@ module.exports = {
       .verify.cssProperty('#signUpPagePasswordInput', 'border', '1px solid gray')
       .setValue("#signUpPagePasswordInput", "jan")
       .verify.cssProperty('#signUpPagePasswordInput', 'border', '1px solid rgb(242, 222, 222)')
-      .setValue("#signUpPagePasswordInput", "iceD*e123")
+      .setValue("#signUpPagePasswordInput", "icedoe123")
       .verify.cssProperty('#signUpPagePasswordInput', 'border', '1px solid green')
 
     .verify.cssProperty('#signUpPagePasswordConfirmInput', 'border', '1px solid gray')
       .setValue("#signUpPagePasswordConfirmInput", "ja")
-      .verify.cssProperty('#signUpPagePasswordConfirmInput', 'border',
-        '1px solid rgb(242, 222, 222)')
+      .click("#signUpPagePasswordConfirmInput").pause(100) // hack to unfocus and input the data
+      // .setValue("#signUpPagePasswordConfirmInput", "n") // we split our setValue into two as a workaround for keyup detection
+      .verify.cssProperty('#signUpPagePasswordConfirmInput', 'border', '1px solid rgb(169, 68, 66)')
       .clearValue("#signUpPagePasswordConfirmInput")
-      .setValue("#signUpPagePasswordConfirmInput", "Janiced*e123")
+      .setValue("#signUpPagePasswordConfirmInput", "janicedoe123")
+      // .click("#signUpPagePasswordConfirmInput").pause(100) // hack to unfocus and input the data
+      // .setValue("#signUpPagePasswordConfirmInput", " ")// we split our setValue into two as a workaround for keyup detection
       .verify.cssProperty('#signUpPagePasswordConfirmInput', 'border', '1px solid green');
   },
   "guest should be notified if passwords do not match": function (client) {
@@ -75,10 +79,10 @@ module.exports = {
       .pause(500)
       .verify.cssProperty('#signUpPagePasswordInput', 'border', '1px solid gray')
       .verify.cssProperty('#signUpPagePasswordConfirmInput', 'border', '1px solid gray')
-      .setValue("#signUpPagePasswordInput", "Janiced*e123")
+      .setValue("#signUpPagePasswordInput", "janicedoe123")
       .verify.cssProperty('#signUpPagePasswordInput', 'border', '1px solid green')
       .verify.cssProperty('#signUpPagePasswordConfirmInput', 'border', '1px solid gray')
-      .setValue("#signUpPagePasswordConfirmInput", "Janiced*e123")
+      .setValue("#signUpPagePasswordConfirmInput", "janicedoe123")
       .verify.cssProperty('#signUpPagePasswordInput', 'border', '1px solid green')
       .verify.cssProperty('#signUpPagePasswordConfirmInput', 'border', '1px solid green');
   },
@@ -105,8 +109,8 @@ module.exports = {
 
     .setValue("#signUpPageFullNameInput", "Janice Doe")
       .setValue("#signUpPageEmailInput", "janicedoe@symptomatic.io")
-      .setValue("#signUpPagePasswordInput", "Janiced*e123")
-      .setValue("#signUpPagePasswordConfirmInput", "Janiced*e123")
+      .setValue("#signUpPagePasswordInput", "janicedoe123")
+      .setValue("#signUpPagePasswordConfirmInput", "janicedoe123")
 
     .click("#signUpPageJoinNowButton").pause(1000)
 
@@ -132,7 +136,7 @@ module.exports = {
       .url("http://localhost:3000/entrySignIn")
       .resizeWindow(1600, 1200)
       .verify.containsText("#usernameLink", "Sign In")
-      .signIn("janicedoe@symptomatic.io", "Janiced*e123").pause(500)
+      .signIn("janicedoe@symptomatic.io", "janicedoe123").pause(500)
       .verify.containsText("#usernameLink", "janicedoe@symptomatic.io")
       .click("#logoutButton").pause(200)
       .verify.containsText("#usernameLink", "Sign In");
@@ -142,7 +146,7 @@ module.exports = {
       .url("http://localhost:3000/entrySignIn")
       .resizeWindow(1024, 768)
       .verify.containsText("#usernameLink", "Sign In")
-      .signIn("janicedoe@symptomatic.io", "Janiced*e123").pause(500)
+      .signIn("janicedoe@symptomatic.io", "janicedoe123").pause(500)
       .verify.containsText("#usernameLink", "janicedoe@symptomatic.io")
       .click("#logoutButton").pause(200)
       .verify.containsText("#usernameLink", "Sign In");
@@ -152,17 +156,57 @@ module.exports = {
       .url("http://localhost:3000/entrySignIn")
       .resizeWindow(320, 960)
       // .verify.containsText("#usernameLink", "Sign In")
-      .signIn("janicedoe@symptomatic.io", "Janiced*e123").pause(500)
+      .signIn("janicedoe@symptomatic.io", "janicedoe123").pause(500)
       .click("#navbarHeader").pause(300)
       .verify.containsText("#usernameLink", "janicedoe@symptomatic.io")
       .click("#logoutButton").pause(200)
       .verify.containsText("#usernameLink", "Sign In");
   },
-  "if anonymous user tries to log in with non-existing account, a message is shown": function (
-    client) {
+  "existing user should be able to change their password" : function (client) {
     client
       .url("http://localhost:3000/entrySignIn")
-      .resizeWindow(1024, 768)
+      .resizeWindow(1600, 1200)
+      .verify.containsText("#usernameLink", "Sign In")
+      .signIn("janicedoe@symptomatic.io", "janicedoe123").pause(500)
+      .verify.containsText("#usernameLink", "janicedoe@symptomatic.io")
+      .url("http://localhost:3000/changePassword")
+      .verify.elementPresent("#changePasswordPageOldPasswordInput")
+      .verify.elementPresent("#changePasswordPagePasswordInput")
+      .verify.elementPresent("#changePasswordPagePasswordConfirmInput")
+      .verify.elementPresent("#changePasswordButton")
+  },
+  "existing user should be notified if desired new password is insecure" : function (client) {
+    client
+      .url("http://localhost:3000/entrySignIn")
+      // .resizeWindow(1600, 1200)
+      // .verify.containsText("#usernameLink", "Sign In")
+      // .signIn("janicedoe@symptomatic.io", "janicedoe123").pause(500)
+      .verify.containsText("#usernameLink", "janicedoe@symptomatic.io")
+      .url("http://localhost:3000/changePassword")
+      .verify.elementPresent("#changePasswordPageOldPasswordInput")
+      .verify.elementPresent("#changePasswordPagePasswordInput")
+      .verify.elementPresent("#changePasswordPagePasswordConfirmInput")
+      .verify.elementPresent("#changePasswordButton")
+      .verify.cssProperty('#changePasswordPagePasswordInput', 'border', '1px solid gray')
+      .setValue("#changePasswordPagePasswordInput", "jan")
+      // .click("#changePasswordPagePasswordInput").pause(100) // hack to unfocus and input the data
+      .verify.cssProperty('#changePasswordPagePasswordInput', 'border', '1px solid rgb(242, 222, 222)')
+      .setValue("#changePasswordPagePasswordInput", "icedoe123")
+      .verify.cssProperty('#changePasswordPagePasswordInput', 'border', '1px solid green')
+      .verify.cssProperty('#changePasswordPagePasswordConfirmInput', 'border', '1px solid gray')
+      .setValue("#changePasswordPagePasswordConfirmInput", "ja")
+      // .click("#changePasswordPagePasswordConfirmInput").pause(100) // hack to unfocus and input the data
+      .verify.cssProperty('#changePasswordPagePasswordConfirmInput', 'border', '1px solid rgb(169, 68, 66)')
+      .clearValue("#changePasswordPagePasswordConfirmInput")
+      .setValue("#changePasswordPagePasswordConfirmInput", "janicedoe123")
+      .click("#changePasswordPagePasswordConfirmInput").pause(100) // hack to unfocus and input the data
+      .verify.cssProperty('#changePasswordPagePasswordConfirmInput', 'border', '1px solid green')
+      .meteorLogout()
+  },
+  "if anonymous user tries to log in with non-existing account, a message is shown" : function (client) {
+    client
+      .url("http://localhost:3000/entrySignIn")
+      .resizeWindow(1200, 1024).pause(300)
       .signIn("alice@symptomatic.io", "alice123").pause(500)
       .verify.containsText("#signInPageMessage", "User not found [403]")
       .verify.cssProperty("#signInPageMessage", "color", "rgba(169, 68, 66, 1)")
@@ -172,8 +216,8 @@ module.exports = {
   "anonymous guest should be notified if email already exists": function (client) {
     client
       .url("http://localhost:3000/entrySignUp")
-      .resizeWindow(1024, 768)
-      .signUp("janicedoe@symptomatic.io", "Janiced*e123").pause(500)
+      //.resizeWindow(1024, 768)
+      .signUp("janicedoe@symptomatic.io", "janicedoe123").pause(500)
       .click("#signUpPageJoinNowButton").pause(1000)
       .verify.elementPresent("#signUpPageMessage")
       .verify.containsText("#signUpPageMessage", "Email already exists. [403]");

@@ -1,6 +1,6 @@
 ## clinical:active-entry
 
-This package provides the SignIn, SignUp, and ForgotPassword pages.  
+This package provides the SignIn, SignUp, ForgotPassword, ChangePassword, and Logout pages.  
 
 [![Circle CI](https://circleci.com/gh/clinical-meteor/active-entry/tree/master.svg?style=svg)](https://circleci.com/gh/clinical-meteor/active-entry/tree/master)
 
@@ -10,6 +10,11 @@ This package provides the SignIn, SignUp, and ForgotPassword pages.
 ````
 meteor add clinical:active-entry
 ````
+
+===============================
+#### Entry Workflow States
+
+![Entry Workflow](https://raw.githubusercontent.com/clinical-meteor/active-entry/master/docs/Entry.png)
 
 ===============================
 #### Entry Flowchart
@@ -27,6 +32,7 @@ The following diagram represents the entry workflow that is being implemented in
 /entrySignIn
 /entrySignUp
 /forgotPassword
+/changePassword
 ````
 
 ===============================
@@ -36,6 +42,7 @@ The following diagram represents the entry workflow that is being implemented in
 {{> entrySignIn }}
 {{> entrySignUp }}
 {{> forgotPassword }}
+{{> changePassword }}
 ````
 
 

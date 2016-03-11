@@ -1,6 +1,6 @@
 Package.describe({
   name: 'clinical:active-entry',
-  version: '1.5.15',
+  version: '1.5.21',
   summary: 'SignIn, SignUp, and ForgotPassword pages for Clinical Framework.',
   git: 'https://github.com/clinical-meteor/clinical-active-entry',
   documentation: 'README.md'
@@ -58,6 +58,10 @@ Package.onUse(function (api) {
     'components/forgotPassword/forgotPassword.html',
     'components/forgotPassword/forgotPassword.js',
     'components/forgotPassword/forgotPassword.less',
+
+    'components/changePassword/changePassword.html',
+    'components/changePassword/changePassword.js',
+    'components/changePassword/changePassword.less',
 
   ], ['client']);
 
