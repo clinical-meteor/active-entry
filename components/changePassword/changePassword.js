@@ -26,7 +26,7 @@ Template.changePassword.helpers({
       return "border: 1px solid #a94442";
     } else if (ActiveEntry.errorMessages.equals('password', "Password is weak")) {
       return "border: 1px solid #f2dede";
-    } else if (ActiveEntry.errorMessages.equals('password', "Password present")) {
+    } else if (ActiveEntry.successMessages.equals('password', "Password present")) {
       return "border: 1px solid green";
     } else {
       return "border: 1px solid gray";
@@ -39,7 +39,7 @@ Template.changePassword.helpers({
       return "border: 1px solid #a94442";
     } else if (ActiveEntry.errorMessages.equals('confirm', "Password is weak")) {
       return "border: 1px solid #f2dede";
-    } else if (ActiveEntry.errorMessages.equals('confirm', "Passwords match")) {
+    } else if (ActiveEntry.successMessages.equals('confirm', "Passwords match")) {
       return "border: 1px solid green";
     } else {
       return "border: 1px solid gray";

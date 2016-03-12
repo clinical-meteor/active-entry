@@ -17,8 +17,7 @@ Package.onUse(function (api) {
     'session',
     'reactive-dict',
     'accounts-base',
-    'accounts-password',
-    'codetheweb:zxcvbn'
+    'accounts-password'
   ], ['client']);
 
   api.use([
@@ -26,19 +25,10 @@ Package.onUse(function (api) {
     'accounts-password'
   ], ['server']);
 
-  api.use([
-    'zuuk:stale-session@1.0.8'
-  ], ['client', 'server']);
-
   api.addFiles([
     'lib/ActiveEntry.js',
     'lib/Accounts.js'
   ]);
-
-  api.addFiles([
-    'lib/jquery.pwstrength.bootstrap.js',
-    'lib/validatePassword.js'
-  ], ['client']);
 
   api.imply('accounts-base');
   api.imply('accounts-password');
@@ -61,7 +51,7 @@ Package.onUse(function (api) {
 
     'components/changePassword/changePassword.html',
     'components/changePassword/changePassword.js',
-    'components/changePassword/changePassword.less',
+    'components/changePassword/changePassword.less'
 
   ], ['client']);
 

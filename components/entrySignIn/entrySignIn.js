@@ -57,13 +57,24 @@ Template.entrySignIn.helpers({
   getPasswordValidationStyling: function () {
     if (ActiveEntry.errorMessages.equals('password', "Password is required")) {
       return "border: 1px solid #a94442";
-    } else if (ActiveEntry.errorMessages.equals('password', "Password must have at least 8 characters. It must contain at least 1 uppercase, 1 lowercase, 1 number and 1 special character.")) {
+    } else if (ActiveEntry.errorMessages.equals('password', "Password is weak")) {
       return "border: 1px solid #f2dede";
     } else if (ActiveEntry.successMessages.equals('password', "Password present")) {
       return "border: 1px solid green";
     } else {
       return "border: 1px solid gray";
     }
+  },
+  signInErrorMessages: function() {
+    var errorMessages = [];
+    if (ActiveEntry.errorMessages.get("email")) {
+      errorMessages.push(ActiveEntry.errorMessages.get("email"));
+    }
+    if (ActiveEntry.errorMessages.get("password")) {
+      errorMessages.push(ActiveEntry.errorMessages.get("password"));
+    }
+
+    return errorMessages;
   }
 });
 
