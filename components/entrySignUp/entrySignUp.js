@@ -102,7 +102,7 @@ Template.entrySignUp.events({
     event.preventDefault();
     Router.go('/entrySignIn');
   },
-  'keyup #signUpPageEmailInput': function (event, template) {
+  'change, keyup #signUpPageEmailInput': function (event, template) {
     var email = $('[name="email"]').val();
 
     ActiveEntry.verifyEmail(email);
@@ -124,7 +124,7 @@ Template.entrySignUp.events({
     ActiveEntry.verifyConfirmPassword(password, confirmPassword);
     ActiveEntry.errorMessages.set('signInError', null);
   },
-  'keyup #signUpPageFullNameInput': function (event, template) {
+  'change, keyup #signUpPageFullNameInput': function (event, template) {
     var fullName = template.$('[name="fullName"]').val();
 
     ActiveEntry.verifyFullName(fullName);
