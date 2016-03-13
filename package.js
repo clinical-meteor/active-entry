@@ -51,7 +51,7 @@ Package.onUse(function (api) {
 
     'components/changePassword/changePassword.html',
     'components/changePassword/changePassword.js',
-    'components/changePassword/changePassword.less',
+    'components/changePassword/changePassword.less'
 
   ], ['client']);
 

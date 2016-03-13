@@ -11,14 +11,13 @@
         <div id="signUpPageMessage" class="subtitle-auth" style="{{getSignUpMessageColor}}">{{getSignUpMessage}}</div>
 
         <form id="entrySignUpForm">
-          {{#if errorMessages}}
+          {{#if signUpErrorMessages}}
             <div id="errorMessages" class="list-errors">
-              {{#each errorMessages}}
-                <div class="alert alert-danger list-item">{{this}}</div>
+              {{#each signUpErrorMessages}}
+              <div class="alert alert-danger list-item">{{this}}</div>
               {{/each}}
             </div>
           {{/if}}
-
           <div class="input-symbol ">
             <input id="signUpPageFullNameInput" type="text" name="fullName" placeholder="Full Name" style="{{getFullNameStyling}}" />
             <i class="fa fa-user" title="Full Name"></i>
