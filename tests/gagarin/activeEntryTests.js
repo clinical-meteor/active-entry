@@ -57,6 +57,11 @@ describe('clinical:active-entry', function () {
   // ActiveEntry.verifyPassword
   it('Password validation confirms it is a properly formatted password.', function () {
     return client.execute(function (a) {
+      ActiveEntry.configure({
+        passwordOptions: {
+          requireStrongPasswords: false
+        }
+      });
       ActiveEntry.verifyPassword('');
       expect(ActiveEntry.errorMessages.get('password')).to.equal("Password is required");
 
@@ -64,6 +69,25 @@ describe('clinical:active-entry', function () {
       expect(ActiveEntry.errorMessages.get('password')).to.equal("Password is weak");
 
       ActiveEntry.verifyPassword('kittens123');
+      expect(ActiveEntry.successMessages.get('password')).to.equal("Password present");
+    });
+  });
+
+  it('Strong password validation confirms it is a properly formatted password.', function () {
+    return client.execute(function (a) {
+      ActiveEntry.configure({
+        passwordOptions: {
+          requireStrongPasswords: true,
+          validationType: "regex"
+        }
+      });
+      ActiveEntry.verifyPassword('');
+      expect(ActiveEntry.errorMessages.get('password')).to.equal("Password is required");
+
+      ActiveEntry.verifyPassword('kittens');
+      expect(ActiveEntry.errorMessages.get('password')).to.equal("Password is weak");
+
+      ActiveEntry.verifyPassword('Kitt*ns123');
       expect(ActiveEntry.successMessages.get('password')).to.equal("Password present");
     });
   });
