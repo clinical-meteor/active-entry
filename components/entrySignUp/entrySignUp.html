@@ -11,10 +11,10 @@
         <div id="signUpPageMessage" class="subtitle-auth" style="{{getSignUpMessageColor}}">{{getSignUpMessage}}</div>
 
         <form id="entrySignUpForm">
-          {{#if signUpErrorMessages}}
+          {{#if signUpErrorMessage}}
             <div id="errorMessages" class="list-errors">
-              {{#each signUpErrorMessages}}
-              <div class="alert alert-danger list-item">{{this}}</div>
+              {{#each signUpErrorMessage}}
+                <div class="alert alert-danger list-item">{{this}}</div>
               {{/each}}
             </div>
           {{/if}}
@@ -46,13 +46,13 @@
             <!-- <span class="icon-lock" title="Confirm Password"></span> -->
           </div>
         </form>
-          <br>
-          <br>
-          <button id="signUpPageJoinNowButton" type="submit" class="btn-primary btn-main btn-large" style="{{getButtonColor}}">Join Now</button>
+        <br>
+        <br>
+        <button id="signUpPageJoinNowButton" type="submit" class="btn-primary btn-main btn-large" style="{{getButtonColor}}">Join Now</button>
 
-          <br>
-          <br>
-          <button id="signUpPageSignInButton" class="btn-gray btn-main btn-large">Have an account? Sign in</button>
+        <br>
+        <br>
+        <button id="signUpPageSignInButton" class="btn-gray btn-main btn-large">Have an account? Sign in</button>
 
       </div>
 
