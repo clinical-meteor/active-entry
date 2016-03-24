@@ -255,7 +255,7 @@ describe('clinical:active-entry', function () {
     });
   });
 
-  it("Newly created user can change password in the application.", function () {
+  /*it("Newly created user can change password in the application.", function () {
     return client.execute(function () {
       ActiveEntry.configure({
         passwordOptions: {
@@ -308,7 +308,7 @@ describe('clinical:active-entry', function () {
         });
       });
     });
-  });
+  });*/
 
   // it("config should be able to change company logo", function () {
   //

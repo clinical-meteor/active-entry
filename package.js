@@ -31,7 +31,8 @@ Package.onUse(function (api) {
   ]);
 
   api.addFiles([
-    'lib/checkPasswordValidation.js'
+    'lib/checkPasswordValidation.js',
+    'lib/utils.js'
   ], ['client']);
 
   api.imply('accounts-base');
