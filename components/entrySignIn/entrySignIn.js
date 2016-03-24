@@ -1,6 +1,7 @@
 
 // REFACTOR:  Move to ActiveRecord object
 Session.set("defaultSignInMessage", "Improve your clinical practice with checklists.");
+Session.setDefault("redirectUri", false);
 
 //==================================================================================================
 // ROUTER
@@ -13,6 +14,20 @@ Router.route('/sign-in', {
   template: 'entrySignIn',
   name: 'signInRoute'
 });
+
+Router.route('/oauth', {
+  template: 'entrySignIn',
+  name: 'oauthSignIn',
+  onAfterAction: function (){
+    console.log('/oauth params', this.params.query);
+    Session.set('urlParams', this.params.query);
+
+    Session.set('responseType', this.params.query.response_type);
+    Session.set('clientId', this.params.query.client_id);
+    Session.set('redirectUri', this.params.query.redirect_uri);
+  }
+});
+
 
 //==================================================================================================
 // COMPONENT OUTPUTS
@@ -121,7 +136,13 @@ Template.entrySignIn.events({
     var emailValue = template.$('#signInPageEmailInput').val();
     var passwordValue = template.$('#signInPagePasswordInput').val();
 
-    ActiveEntry.signIn(emailValue, passwordValue);
+    console.log('responseType', Session.get('responseType'));
+    console.log('clientId', Session.get('clientId'));
+    console.log('redirectUri', Session.get('redirectUri'));
+
+
+    ActiveEntry.signIn(emailValue, passwordValue, Session.get('redirectUri'));
+
     event.preventDefault();
   }
 });
