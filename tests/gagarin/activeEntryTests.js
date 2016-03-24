@@ -255,6 +255,60 @@ describe('clinical:active-entry', function () {
     });
   });
 
+  it("Newly created user can change password in the application.", function () {
+    return client.execute(function () {
+      ActiveEntry.configure({
+        passwordOptions: {
+          requireStrongPasswords: false
+        }
+      });
+      expect(Meteor.userId()).to.not.exist;
+      ActiveEntry.signIn('janedoe@test.org', 'janedoe123');
+    }).then(function (){
+      client.wait(3000, "for user to sign in", function (){
+        expect(Meteor.userId()).to.exist;
+        ActiveEntry.changePassword('janedoe123', 'janedoe1234', 'janedoe1234');
+      }).then(function (){
+        expect(Meteor.userId()).to.not.exist;
+        ActiveEntry.signIn('janedoe@test.org', 'janedoe1234');
+      }).then(function (){
+        client.wait(3000, "for user to sign in", function (){
+          expect(Meteor.userId()).to.exist;
+          ActiveEntry.signOut('janedoe@test.org');
+        }).then(function (){
+          expect(Meteor.userId()).to.not.exist;
+        });
+      });
+    });
+  });
+
+  it("Newly created user who has strong password can change password in the application.", function () {
+    return client.execute(function () {
+      ActiveEntry.configure({
+        passwordOptions: {
+          requireStrongPasswords: true,
+          validationType: "regex"
+        }
+      });
+      expect(Meteor.userId()).to.not.exist;
+      ActiveEntry.signIn('janedoe@test.org', 'Janed*e123');
+    }).then(function (){
+      client.wait(3000, "for user to sign in", function (){
+        expect(Meteor.userId()).to.exist;
+        ActiveEntry.changePassword('Janed*e123', 'Janed*e1234', 'Janed*e1234');
+      }).then(function (){
+        expect(Meteor.userId()).to.not.exist;
+        ActiveEntry.signIn('janedoe@test.org', 'Janed*e1234');
+      }).then(function (){
+        client.wait(3000, "for user to sign in", function (){
+          expect(Meteor.userId()).to.exist;
+          ActiveEntry.signOut('janedoe@test.org');
+        }).then(function (){
+          expect(Meteor.userId()).to.not.exist;
+        });
+      });
+    });
+  });
 
   // it("config should be able to change company logo", function () {
   //

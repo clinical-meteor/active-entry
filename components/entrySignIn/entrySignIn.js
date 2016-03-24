@@ -66,15 +66,14 @@ Template.entrySignIn.helpers({
     }
   },
   signInErrorMessages: function() {
-    var errorMessages = [];
     if (ActiveEntry.errorMessages.get("email")) {
-      errorMessages.push(ActiveEntry.errorMessages.get("email"));
+      return [ActiveEntry.errorMessages.get("email")];
     }
-    if (ActiveEntry.errorMessages.get("password")) {
-      errorMessages.push(ActiveEntry.errorMessages.get("password"));
+    if (ActiveEntry.errorMessages.get("password") === 'Password is required') {
+      return [ActiveEntry.errorMessages.get("password")];
     }
 
-    return errorMessages;
+    return;
   }
 });
 
