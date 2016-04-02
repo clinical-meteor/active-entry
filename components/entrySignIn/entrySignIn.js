@@ -15,13 +15,25 @@ Router.route('/sign-in', {
   name: 'signInRoute'
 });
 
+//TODO: deprecate this sooner rather than later
+//TODO: update the FHIR conformance statement at /metadata
 Router.route('/oauth', {
   template: 'entrySignIn',
   name: 'oauthSignIn',
   onAfterAction: function (){
-    console.log('/oauth params', this.params.query);
+    //console.log('/oauth params', this.params.query);
     Session.set('urlParams', this.params.query);
-
+    Session.set('responseType', this.params.query.response_type);
+    Session.set('clientId', this.params.query.client_id);
+    Session.set('redirectUri', this.params.query.redirect_uri);
+  }
+});
+Router.route('/oauth/authorize', {
+  template: 'entrySignIn',
+  name: 'oauthAuthorizeSignIn',
+  onAfterAction: function (){
+    //console.log('/oauth/authorize params', this.params.query);
+    Session.set('urlParams', this.params.query);
     Session.set('responseType', this.params.query.response_type);
     Session.set('clientId', this.params.query.client_id);
     Session.set('redirectUri', this.params.query.redirect_uri);
