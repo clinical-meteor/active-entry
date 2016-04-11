@@ -66,15 +66,14 @@ Template.entrySignIn.helpers({
     }
   },
   signInErrorMessages: function() {
-    var errorMessages = [];
     if (ActiveEntry.errorMessages.get("email")) {
-      errorMessages.push(ActiveEntry.errorMessages.get("email"));
+      return [ActiveEntry.errorMessages.get("email")];
     }
-    if (ActiveEntry.errorMessages.get("password")) {
-      errorMessages.push(ActiveEntry.errorMessages.get("password"));
+    if (ActiveEntry.errorMessages.get("password") === 'Password is required') {
+      return [ActiveEntry.errorMessages.get("password")];
     }
 
-    return errorMessages;
+    return;
   }
 });
 
@@ -99,25 +98,25 @@ Template.entrySignIn.events({
   'keyup input[name="email"]': function (event, template) {
     var email = $('input[name="email"]').val();
 
-    ActiveEntry.verifyEmail(email);
+    //ActiveEntry.verifyEmail(email);
     ActiveEntry.errorMessages.set('signInError', null);
   },
   'change input[name="email"]': function (event, template) {
     var email = $('input[name="email"]').val();
 
-    ActiveEntry.verifyEmail(email);
+    //ActiveEntry.verifyEmail(email);
     ActiveEntry.errorMessages.set('signInError', null);
   },
   'keyup #signInPagePasswordInput': function (event, template) {
     var password = $('input[name="password"]').val();
 
-    ActiveEntry.verifyPassword(password);
+    //ActiveEntry.verifyPassword(password);
     ActiveEntry.errorMessages.set('signInError', null);
   },
   'change #signInPagePasswordInput': function (event, template) {
     var password = $('input[name="password"]').val();
 
-    ActiveEntry.verifyPassword(password);
+    //ActiveEntry.verifyPassword(password);
     ActiveEntry.errorMessages.set('signInError', null);
   },
   // 'submit': function (event, template) {

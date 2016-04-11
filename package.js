@@ -30,6 +30,11 @@ Package.onUse(function (api) {
     'lib/Accounts.js'
   ]);
 
+  api.addFiles([
+    'lib/checkPasswordValidation.js',
+    'lib/utils.js'
+  ], ['client']);
+
   api.imply('accounts-base');
   api.imply('accounts-password');
 
