@@ -41,7 +41,7 @@ Template.entrySignUp.helpers({
       return "border: 1px solid #a94442";
     } else if (ActiveEntry.errorMessages.equals('email', "Email is poorly formatted")) {
       return "border: 1px solid #f2dede";
-    } else if (ActiveEntry.errorMessages.equals('email', "Email present")) {
+    } else if (ActiveEntry.successMessages.equals('email', "Email present")) {
       return "border: 1px solid green";
     } else {
       return "border: 1px solid gray";
@@ -52,7 +52,7 @@ Template.entrySignUp.helpers({
       return "border: 1px solid #a94442";
     } else if (ActiveEntry.errorMessages.equals('password', "Password is weak")) {
       return "border: 1px solid #f2dede";
-    } else if (ActiveEntry.errorMessages.equals('password', "Password present")) {
+    } else if (ActiveEntry.successMessages.equals('password', "Password present")) {
       return "border: 1px solid green";
     } else {
       return "border: 1px solid gray";
@@ -69,7 +69,7 @@ Template.entrySignUp.helpers({
       return "border: 1px solid #a94442";
     } else if (ActiveEntry.errorMessages.equals('confirm', "Password is weak")) {
       return "border: 1px solid #f2dede";
-    } else if (ActiveEntry.errorMessages.equals('confirm', "Passwords match")) {
+    } else if (ActiveEntry.successMessages.equals('confirm', "Passwords match")) {
       return "border: 1px solid green";
     } else {
       return "border: 1px solid gray";
@@ -80,11 +80,25 @@ Template.entrySignUp.helpers({
       return "border: 1px solid #a94442";
     } else if (ActiveEntry.errorMessages.equals('fullName', "Name is probably not complete")) {
       return "border: 1px solid #f2dede";
-    } else if (ActiveEntry.errorMessages.equals('fullName', "Name present")) {
+    } else if (ActiveEntry.successMessages.equals('fullName', "Name present")) {
       return "border: 1px solid green";
     } else {
       return "border: 1px solid gray";
     }
+  },
+  signUpErrorMessage: function() {
+    var allErrorMessages = Object.keys(ActiveEntry.errorMessages.all()).filter(function(key) {
+      return key !== "signInError" && ActiveEntry.errorMessages.get(key);
+    });
+
+    if (allErrorMessages.length > 0) {
+      var errorMessage = ActiveEntry.errorMessages.get(allErrorMessages[0]);
+      if (errorMessage) {
+        return [errorMessage];
+      }
+    }
+
+    return;
   }
 });
 
@@ -99,13 +113,13 @@ Template.entrySignUp.events({
     ActiveEntry.verifyEmail(email);
     ActiveEntry.errorMessages.set('signInError', null);
   },
-  'change, keyup #signUpPagePasswordInput': function (event, template) {
+  'keyup #signUpPagePasswordInput': function (event, template) {
     var password = $('[name="password"]').val();
 
     ActiveEntry.verifyPassword(password);
     ActiveEntry.errorMessages.set('signInError', null);
   },
-  'change, keyup #signUpPagePasswordConfirmInput': function (event, template) {
+  'keyup #signUpPagePasswordConfirmInput': function (event, template) {
 
     var password = $('[name="password"]').val();
     var confirmPassword = $('[name="confirm"]').val();
@@ -124,10 +138,10 @@ Template.entrySignUp.events({
   'click #signUpPageJoinNowButton': function (event, template) {
 
     ActiveEntry.signUp(
-      $('#signUpPageEmailInput').val(),
-      $('#signUpPagePasswordInput').val(),
-      $('#signUpPagePasswordConfirmInput').val(),
-      $('#signUpPageFullNameInput').val()
+        $('#signUpPageEmailInput').val(),
+        $('#signUpPagePasswordInput').val(),
+        $('#signUpPagePasswordConfirmInput').val(),
+        $('#signUpPageFullNameInput').val()
     );
   }
 });

@@ -17,6 +17,13 @@
           <p id="signInPageMessage" class="subtitle-auth" style="{{getSignInMessageColor}}">{{getSignInMessage}}</p>
 
           <form>
+            {{#if signInErrorMessages}}
+              <div id="errorMessages" class="list-errors">
+                {{#each signInErrorMessages}}
+                  <div class="alert alert-danger list-item">{{this}}</div>
+                {{/each}}
+              </div>
+            {{/if}}
             <div class="input-symbol">
               <input id="signInPageEmailInput" type="text" name="email" placeholder="Your Email" style="{{getEmailValidationStyling}}" />
               <i class="fa fa-envelope-o" title="Your Email"></i>

@@ -26,7 +26,7 @@ Template.changePassword.helpers({
       return "border: 1px solid #a94442";
     } else if (ActiveEntry.errorMessages.equals('password', "Password is weak")) {
       return "border: 1px solid #f2dede";
-    } else if (ActiveEntry.errorMessages.equals('password', "Password present")) {
+    } else if (ActiveEntry.successMessages.equals('password', "Password present")) {
       return "border: 1px solid green";
     } else {
       return "border: 1px solid gray";
@@ -39,18 +39,28 @@ Template.changePassword.helpers({
       return "border: 1px solid #a94442";
     } else if (ActiveEntry.errorMessages.equals('confirm', "Password is weak")) {
       return "border: 1px solid #f2dede";
-    } else if (ActiveEntry.errorMessages.equals('confirm', "Passwords match")) {
+    } else if (ActiveEntry.successMessages.equals('confirm', "Passwords match")) {
       return "border: 1px solid green";
     } else {
       return "border: 1px solid gray";
     }
+  },
+  changePasswordErrorMessages: function() {
+    if (ActiveEntry.errorMessages.get('password')) {
+      return [ActiveEntry.errorMessages.get('password')];
+    }
+
+    if (ActiveEntry.errorMessages.get('confirm')) {
+      return [ActiveEntry.errorMessages.get('confirm')];
+    }
+
+    return;
   }
 });
 
 Template.changePassword.events({
   'change, keyup #changePasswordPagePasswordInput': function (event, template) {
     var password = $('[name="password"]').val();
-    var confirmPassword = $('[name="confirm"]').val();
 
     ActiveEntry.verifyPassword(password);
     ActiveEntry.errorMessages.set('changePasswordError', null);
@@ -63,22 +73,11 @@ Template.changePassword.events({
     ActiveEntry.errorMessages.set('changePasswordError', null);
   },
   "submit": function (event, template) {
-    event.preventDefault();
-
     var oldPassword = $('[name="oldPassword"]').val();
-
     var password = $('[name="password"]').val();
     var confirmPassword = $('[name="confirm"]').val();
 
-    ActiveEntry.verifyConfirmPassword(password, confirmPassword);
-    ActiveEntry.errorMessages.set('changePasswordError', null);
-
-    Accounts.changePassword(oldPassword, confirmPassword, function(error) {
-      if (error) {
-        console.warn(error);
-        return;
-      }
-      console.log('Password changed!');
-    });
+    ActiveEntry.changePassword(oldPassword, password, confirmPassword);
+    event.preventDefault();
   }
 });

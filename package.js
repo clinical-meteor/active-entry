@@ -30,6 +30,11 @@ Package.onUse(function (api) {
     'lib/Accounts.js'
   ]);
 
+  api.addFiles([
+    'lib/checkPasswordValidation.js',
+    'lib/utils.js'
+  ], ['client']);
+
   api.imply('accounts-base');
   api.imply('accounts-password');
 
@@ -51,7 +56,7 @@ Package.onUse(function (api) {
 
     'components/changePassword/changePassword.html',
     'components/changePassword/changePassword.js',
-    'components/changePassword/changePassword.less',
+    'components/changePassword/changePassword.less'
 
   ], ['client']);
 

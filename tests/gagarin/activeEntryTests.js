@@ -43,7 +43,7 @@ describe('clinical:active-entry', function () {
   it('Email validation confirms it is a properly formatted email.', function () {
     return client.execute(function (a) {
       ActiveEntry.verifyEmail('janedoe@somewhere.com');
-      expect(ActiveEntry.errorMessages.get('email')).to.equal("Email present");
+      expect(ActiveEntry.successMessages.get('email')).to.equal("Email present");
 
       ActiveEntry.verifyEmail('');
       expect(ActiveEntry.errorMessages.get('email')).to.equal("Email is required");
@@ -57,6 +57,11 @@ describe('clinical:active-entry', function () {
   // ActiveEntry.verifyPassword
   it('Password validation confirms it is a properly formatted password.', function () {
     return client.execute(function (a) {
+      ActiveEntry.configure({
+        passwordOptions: {
+          requireStrongPasswords: false
+        }
+      });
       ActiveEntry.verifyPassword('');
       expect(ActiveEntry.errorMessages.get('password')).to.equal("Password is required");
 
@@ -64,7 +69,26 @@ describe('clinical:active-entry', function () {
       expect(ActiveEntry.errorMessages.get('password')).to.equal("Password is weak");
 
       ActiveEntry.verifyPassword('kittens123');
-      expect(ActiveEntry.errorMessages.get('password')).to.equal("Password present");
+      expect(ActiveEntry.successMessages.get('password')).to.equal("Password present");
+    });
+  });
+
+  it('Strong password validation confirms it is a properly formatted password.', function () {
+    return client.execute(function (a) {
+      ActiveEntry.configure({
+        passwordOptions: {
+          requireStrongPasswords: true,
+          validationType: "regex"
+        }
+      });
+      ActiveEntry.verifyPassword('');
+      expect(ActiveEntry.errorMessages.get('password')).to.equal("Password is required");
+
+      ActiveEntry.verifyPassword('kittens');
+      expect(ActiveEntry.errorMessages.get('password')).to.equal("Password is weak");
+
+      ActiveEntry.verifyPassword('Kitt*ns123');
+      expect(ActiveEntry.successMessages.get('password')).to.equal("Password present");
     });
   });
 
@@ -78,7 +102,7 @@ describe('clinical:active-entry', function () {
       expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Passwords do not match");
 
       ActiveEntry.verifyConfirmPassword('kittens123', 'kittens123');
-      expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Passwords match");
+      expect(ActiveEntry.successMessages.get('confirm')).to.equal("Passwords match");
     });
   });
 
@@ -92,7 +116,7 @@ describe('clinical:active-entry', function () {
       expect(ActiveEntry.errorMessages.get('fullName')).to.equal("Name is probably not complete");
 
       ActiveEntry.verifyFullName('Jane Doe');
-      expect(ActiveEntry.errorMessages.get('fullName')).to.equal("Name present");
+      expect(ActiveEntry.successMessages.get('fullName')).to.equal("Name present");
     });
   });
 
@@ -100,8 +124,13 @@ describe('clinical:active-entry', function () {
   // ActiveEntry.signIn
   it('Newly created user record should have role, profile, and name set.', function () {
     return client.execute(function () {
+      ActiveEntry.configure({
+        passwordOptions: {
+          requireStrongPasswords: false
+        }
+      });
       ActiveEntry.signUp('janedoe@test.org', 'janedoe123', 'janedoe123', 'Jane Doe');
-      expect(ActiveEntry.errorMessages.get('fullName')).to.equal("Name present");
+      expect(ActiveEntry.successMessages.get('fullName')).to.equal("Name present");
     }).then(function (){
       return server.wait(300, 'until account is created on the server', function () {
         return Meteor.users.findOne({'emails.address': 'janedoe@test.org'});
@@ -112,6 +141,25 @@ describe('clinical:active-entry', function () {
     });
   });
 
+  it('Can require strong passwords to create a new user.', function () {
+    return client.execute(function () {
+      ActiveEntry.configure({
+        passwordOptions: {
+          requireStrongPasswords: true,
+          validationType: "regex"
+        }
+      });
+      ActiveEntry.signUp('janedoe@test.org', 'Janed*e123', 'Janed*e123', 'Jane Doe');
+      expect(ActiveEntry.successMessages.get('fullName')).to.equal("Name present");
+    }).then(function (){
+      return server.wait(300, 'until account is created on the server', function () {
+        return Meteor.users.findOne({'emails.address': 'janedoe@test.org'});
+      }).then(function (user){
+        expect(user.role).to.equal('user');
+        expect(user.profile.fullName).to.equal('Jane Doe');
+      });
+    });
+  });
 
 
   it("Newly created user should have fullName(), preferredName(), and familyName() methods.", function () {
@@ -133,8 +181,15 @@ describe('clinical:active-entry', function () {
 
     });
   });
+
+
   it("Newly created user can sign in to the application.", function () {
     return client.execute(function () {
+      ActiveEntry.configure({
+        passwordOptions: {
+          requireStrongPasswords: false
+        }
+      });
       expect(Meteor.userId()).to.not.exist;
       ActiveEntry.signIn('janedoe@test.org', 'janedoe123');
     }).then(function (){
@@ -143,8 +198,31 @@ describe('clinical:active-entry', function () {
       });
     });
   });
+
+  it("Newly created user who has strong password can sign in to the application.", function () {
+    return client.execute(function () {
+      ActiveEntry.configure({
+        passwordOptions: {
+          requireStrongPasswords: true,
+          validationType: "regex"
+        }
+      });
+      expect(Meteor.userId()).to.not.exist;
+      ActiveEntry.signIn('janedoe@test.org', 'Janed*e123');
+    }).then(function (){
+      client.wait(3000, "for user to sign in", function (){
+        expect(Meteor.userId()).to.exist;
+      });
+    });
+  });
+
   it("Newly created user can sign out of the application.", function () {
     return client.execute(function () {
+      ActiveEntry.configure({
+        passwordOptions: {
+          requireStrongPasswords: false
+        }
+      });
       expect(Meteor.userId()).to.not.exist;
       ActiveEntry.signIn('janedoe@test.org', 'janedoe123');
     }).then(function (){
@@ -157,7 +235,80 @@ describe('clinical:active-entry', function () {
     });
   });
 
+  it("Newly created user who has strong password can sign out of the application.", function () {
+    return client.execute(function () {
+      ActiveEntry.configure({
+        passwordOptions: {
+          requireStrongPasswords: true,
+          validationType: "regex"
+        }
+      });
+      expect(Meteor.userId()).to.not.exist;
+      ActiveEntry.signIn('janedoe@test.org', 'Janed*e123');
+    }).then(function (){
+      client.wait(3000, "for user to sign in", function (){
+        expect(Meteor.userId()).to.exist;
+        ActiveEntry.signOut('janedoe@test.org');
+      }).then(function (){
+        expect(Meteor.userId()).to.not.exist;
+      });
+    });
+  });
 
+  /*it("Newly created user can change password in the application.", function () {
+    return client.execute(function () {
+      ActiveEntry.configure({
+        passwordOptions: {
+          requireStrongPasswords: false
+        }
+      });
+      expect(Meteor.userId()).to.not.exist;
+      ActiveEntry.signIn('janedoe@test.org', 'janedoe123');
+    }).then(function (){
+      client.wait(3000, "for user to sign in", function (){
+        expect(Meteor.userId()).to.exist;
+        ActiveEntry.changePassword('janedoe123', 'janedoe1234', 'janedoe1234');
+      }).then(function (){
+        expect(Meteor.userId()).to.not.exist;
+        ActiveEntry.signIn('janedoe@test.org', 'janedoe1234');
+      }).then(function (){
+        client.wait(3000, "for user to sign in", function (){
+          expect(Meteor.userId()).to.exist;
+          ActiveEntry.signOut('janedoe@test.org');
+        }).then(function (){
+          expect(Meteor.userId()).to.not.exist;
+        });
+      });
+    });
+  });
+
+  it("Newly created user who has strong password can change password in the application.", function () {
+    return client.execute(function () {
+      ActiveEntry.configure({
+        passwordOptions: {
+          requireStrongPasswords: true,
+          validationType: "regex"
+        }
+      });
+      expect(Meteor.userId()).to.not.exist;
+      ActiveEntry.signIn('janedoe@test.org', 'Janed*e123');
+    }).then(function (){
+      client.wait(3000, "for user to sign in", function (){
+        expect(Meteor.userId()).to.exist;
+        ActiveEntry.changePassword('Janed*e123', 'Janed*e1234', 'Janed*e1234');
+      }).then(function (){
+        expect(Meteor.userId()).to.not.exist;
+        ActiveEntry.signIn('janedoe@test.org', 'Janed*e1234');
+      }).then(function (){
+        client.wait(3000, "for user to sign in", function (){
+          expect(Meteor.userId()).to.exist;
+          ActiveEntry.signOut('janedoe@test.org');
+        }).then(function (){
+          expect(Meteor.userId()).to.not.exist;
+        });
+      });
+    });
+  });*/
 
   // it("config should be able to change company logo", function () {
   //
