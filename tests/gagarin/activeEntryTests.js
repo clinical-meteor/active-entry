@@ -35,7 +35,16 @@ describe('clinical:active-entry', function () {
 
   it("Error messages should be empty by default", function () {
     return client.execute(function () {
-      expect(ActiveEntry.errorMessages.get('signInError')).to.equal(false);
+      expect(ActiveEntry.validationStatus.get('signInError').status).to.equal(false);
+      expect(ActiveEntry.validationStatus.get('signInError').message).to.equal(null);
+      expect(ActiveEntry.validationStatus.get('email').status).to.equal(false);
+      expect(ActiveEntry.validationStatus.get('email').message).to.equal(null);
+      expect(ActiveEntry.validationStatus.get('password').status).to.equal(false);
+      expect(ActiveEntry.validationStatus.get('password').message).to.equal(null);
+      expect(ActiveEntry.validationStatus.get('confirm').status).to.equal(false);
+      expect(ActiveEntry.validationStatus.get('confirm').message).to.equal(null);
+      expect(ActiveEntry.validationStatus.get('fullName').status).to.equal(false);
+      expect(ActiveEntry.validationStatus.get('fullName').message).to.equal(null);
     });
   });
 
@@ -43,13 +52,13 @@ describe('clinical:active-entry', function () {
   it('Email validation confirms it is a properly formatted email.', function () {
     return client.execute(function (a) {
       ActiveEntry.verifyEmail('janedoe@somewhere.com');
-      expect(ActiveEntry.successMessages.get('email')).to.equal("Email present");
+      expect(ActiveEntry.validationStatus.get('email').message).to.equal("Email present");
 
       ActiveEntry.verifyEmail('');
-      expect(ActiveEntry.errorMessages.get('email')).to.equal("Email is required");
+      expect(ActiveEntry.validationStatus.get('email').message).to.equal("Email is required");
 
       ActiveEntry.verifyEmail('janedoe.somewhere.com');
-      expect(ActiveEntry.errorMessages.get('email')).to.equal("Email is poorly formatted");
+      expect(ActiveEntry.validationStatus.get('email').message).to.equal("Email is poorly formatted");
     });
   });
 
@@ -59,17 +68,17 @@ describe('clinical:active-entry', function () {
     return client.execute(function (a) {
       ActiveEntry.configure({
         passwordOptions: {
-          requireStrongPasswords: false
+          requireStrongPassword: false
         }
       });
       ActiveEntry.verifyPassword('');
-      expect(ActiveEntry.errorMessages.get('password')).to.equal("Password is required");
+      expect(ActiveEntry.validationStatus.get('password').message).to.equal("Password is required");
 
       ActiveEntry.verifyPassword('kittens');
-      expect(ActiveEntry.errorMessages.get('password')).to.equal("Password is weak");
+      expect(ActiveEntry.validationStatus.get('password').message).to.equal("Password is weak");
 
       ActiveEntry.verifyPassword('kittens123');
-      expect(ActiveEntry.successMessages.get('password')).to.equal("Password present");
+      expect(ActiveEntry.validationStatus.get('password').message).to.equal("Password present");
     });
   });
 
@@ -77,18 +86,18 @@ describe('clinical:active-entry', function () {
     return client.execute(function (a) {
       ActiveEntry.configure({
         passwordOptions: {
-          requireStrongPasswords: true,
+          requireStrongPassword: true,
           validationType: "regex"
         }
       });
       ActiveEntry.verifyPassword('');
-      expect(ActiveEntry.errorMessages.get('password')).to.equal("Password is required");
+      expect(ActiveEntry.validationStatus.get('password').message).to.equal("Password is required");
 
       ActiveEntry.verifyPassword('kittens');
-      expect(ActiveEntry.errorMessages.get('password')).to.equal("Password is weak");
+      expect(ActiveEntry.validationStatus.get('password').message).to.equal("Password is weak");
 
       ActiveEntry.verifyPassword('Kitt*ns123');
-      expect(ActiveEntry.successMessages.get('password')).to.equal("Password present");
+      expect(ActiveEntry.validationStatus.get('password').message).to.equal("Password present");
     });
   });
 
@@ -96,13 +105,14 @@ describe('clinical:active-entry', function () {
   it('Password match confirms that two passwords are the same.', function () {
     return client.execute(function (a) {
       ActiveEntry.verifyConfirmPassword('kittens123', '');
-      expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Password is required");
+      expect(ActiveEntry.validationStatus.get('confirm').message).to.equal("Password is required");
+
 
       ActiveEntry.verifyConfirmPassword('kittens123', 'kittens');
-      expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Passwords do not match");
+      expect(ActiveEntry.validationStatus.get('confirm').message).to.equal("Passwords do not match");
 
       ActiveEntry.verifyConfirmPassword('kittens123', 'kittens123');
-      expect(ActiveEntry.successMessages.get('confirm')).to.equal("Passwords match");
+      expect(ActiveEntry.validationStatus.get('confirm').message).to.equal("Passwords match");
     });
   });
 
@@ -110,13 +120,13 @@ describe('clinical:active-entry', function () {
   it('Fullname validation confirms that at least a first and last name are entered.', function () {
     return client.execute(function (a) {
       ActiveEntry.verifyFullName('');
-      expect(ActiveEntry.errorMessages.get('fullName')).to.equal("Name is required");
+      expect(ActiveEntry.validationStatus.get('fullName').message).to.equal("Name is required");
 
       ActiveEntry.verifyFullName('Jane');
-      expect(ActiveEntry.errorMessages.get('fullName')).to.equal("Name is probably not complete");
+      expect(ActiveEntry.validationStatus.get('fullName').message).to.equal("Name is probably not complete");
 
       ActiveEntry.verifyFullName('Jane Doe');
-      expect(ActiveEntry.successMessages.get('fullName')).to.equal("Name present");
+      expect(ActiveEntry.validationStatus.get('fullName').message).to.equal("Name present");
     });
   });
 
@@ -126,11 +136,11 @@ describe('clinical:active-entry', function () {
     return client.execute(function () {
       ActiveEntry.configure({
         passwordOptions: {
-          requireStrongPasswords: false
+          requireStrongPassword: false
         }
       });
       ActiveEntry.signUp('janedoe@test.org', 'janedoe123', 'janedoe123', 'Jane Doe');
-      expect(ActiveEntry.successMessages.get('fullName')).to.equal("Name present");
+      expect(ActiveEntry.validationStatus.get('fullName').message).to.equal("Name present");
     }).then(function (){
       return server.wait(300, 'until account is created on the server', function () {
         return Meteor.users.findOne({'emails.address': 'janedoe@test.org'});
@@ -145,12 +155,12 @@ describe('clinical:active-entry', function () {
     return client.execute(function () {
       ActiveEntry.configure({
         passwordOptions: {
-          requireStrongPasswords: true,
+          requireStrongPassword: true,
           validationType: "regex"
         }
       });
       ActiveEntry.signUp('janedoe@test.org', 'Janed*e123', 'Janed*e123', 'Jane Doe');
-      expect(ActiveEntry.successMessages.get('fullName')).to.equal("Name present");
+      expect(ActiveEntry.validationStatus.get('fullName').message).to.equal("Name present");
     }).then(function (){
       return server.wait(300, 'until account is created on the server', function () {
         return Meteor.users.findOne({'emails.address': 'janedoe@test.org'});
@@ -187,7 +197,7 @@ describe('clinical:active-entry', function () {
     return client.execute(function () {
       ActiveEntry.configure({
         passwordOptions: {
-          requireStrongPasswords: false
+          requireStrongPassword: false
         }
       });
       expect(Meteor.userId()).to.not.exist;
@@ -203,7 +213,7 @@ describe('clinical:active-entry', function () {
     return client.execute(function () {
       ActiveEntry.configure({
         passwordOptions: {
-          requireStrongPasswords: true,
+          requireStrongPassword: true,
           validationType: "regex"
         }
       });
@@ -220,7 +230,7 @@ describe('clinical:active-entry', function () {
     return client.execute(function () {
       ActiveEntry.configure({
         passwordOptions: {
-          requireStrongPasswords: false
+          requireStrongPassword: false
         }
       });
       expect(Meteor.userId()).to.not.exist;
@@ -228,9 +238,6 @@ describe('clinical:active-entry', function () {
     }).then(function (){
       client.wait(3000, "for user to sign in", function (){
         expect(Meteor.userId()).to.exist;
-        ActiveEntry.signOut('janedoe@test.org');
-      }).then(function (){
-        expect(Meteor.userId()).to.not.exist;
       });
     });
   });
@@ -239,7 +246,7 @@ describe('clinical:active-entry', function () {
     return client.execute(function () {
       ActiveEntry.configure({
         passwordOptions: {
-          requireStrongPasswords: true,
+          requireStrongPassword: true,
           validationType: "regex"
         }
       });
@@ -248,9 +255,6 @@ describe('clinical:active-entry', function () {
     }).then(function (){
       client.wait(3000, "for user to sign in", function (){
         expect(Meteor.userId()).to.exist;
-        ActiveEntry.signOut('janedoe@test.org');
-      }).then(function (){
-        expect(Meteor.userId()).to.not.exist;
       });
     });
   });
@@ -259,7 +263,7 @@ describe('clinical:active-entry', function () {
     return client.execute(function () {
       ActiveEntry.configure({
         passwordOptions: {
-          requireStrongPasswords: false
+        requireStrongPassword: false
         }
       });
       expect(Meteor.userId()).to.not.exist;
@@ -286,7 +290,7 @@ describe('clinical:active-entry', function () {
     return client.execute(function () {
       ActiveEntry.configure({
         passwordOptions: {
-          requireStrongPasswords: true,
+          requireStrongPassword: true,
           validationType: "regex"
         }
       });
