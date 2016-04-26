@@ -125,8 +125,6 @@ Template.entrySignIn.events({
   // },
   'click #signInToAppButton': function (event, template){
     console.log('click #signInToAppButton');
-    // Reset validationStatus keys
-    ActiveEntry.reset();
     var emailValue = template.$('#signInPageEmailInput').val();
     var passwordValue = template.$('#signInPagePasswordInput').val();
 
@@ -143,7 +141,5 @@ Template.entrySignIn.events({
     }
   }
 });
-
-
 
 //==================================================================================================
