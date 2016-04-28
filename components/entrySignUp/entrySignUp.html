@@ -13,11 +13,10 @@
         <form id="entrySignUpForm">
           {{#if signUpErrorMessage}}
             <div id="errorMessages" class="list-errors">
-              {{#each signUpErrorMessage}}
-                <div class="alert alert-danger list-item">{{this}}</div>
-              {{/each}}
+                <div class="alert alert-danger list-item">{{signUpErrorMessage}}</div>
             </div>
           {{/if}}
+
           <div class="input-symbol ">
             <input id="signUpPageFullNameInput" type="text" name="fullName" placeholder="Full Name" style="{{getFullNameStyling}}" />
             <i class="fa fa-user" title="Full Name"></i>

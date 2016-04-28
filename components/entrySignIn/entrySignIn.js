@@ -22,15 +22,15 @@ Router.route('/sign-in', {
 
 Template.entrySignIn.helpers({
   getSignInMessageColor: function (){
-    if (ActiveEntry.errorMessages.get('signInError')) {
+    if (ActiveEntry.validationStatus.get('signInError').status) {
       return "color: #a94442; background-color: #f2dede; border-color: #ebccd1;"
     } else {
       return "color: black;"
     }
   },
   getSignInMessage: function (){
-    if (ActiveEntry.errorMessages.get('signInError')) {
-      return ActiveEntry.errorMessages.get('signInError');
+    if (ActiveEntry.validationStatus.get('signInError').status) {
+      return ActiveEntry.validationStatus.get('signInError').message;
     } else {
       return Session.get('defaultSignInMessage');
     }
@@ -44,36 +44,33 @@ Template.entrySignIn.helpers({
     // }
   },
   getEmailValidationStyling: function () {
-    if (ActiveEntry.errorMessages.equals('email', "Email is required")) {
+    if (ActiveEntry.validationStatus.get('email').message === "Email is required") {
       return "border: 1px solid #a94442";
-    } else if (ActiveEntry.errorMessages.equals('email', "Email is poorly formatted")) {
+    } else if (ActiveEntry.validationStatus.get('email').message === "Email is poorly formatted") {
       return "border: 1px solid #f2dede";
-    } else if (ActiveEntry.successMessages.equals('email', "Email present")) {
+    } else if (ActiveEntry.validationStatus.get('email').message === "Email present") {
       return "border: 1px solid green";
     } else {
       return "border: 1px solid gray";
     }
   },
   getPasswordValidationStyling: function () {
-    if (ActiveEntry.errorMessages.equals('password', "Password is required")) {
+    if (ActiveEntry.validationStatus.get('password').message === "Password is required") {
       return "border: 1px solid #a94442";
-    } else if (ActiveEntry.errorMessages.equals('password', "Password is weak")) {
+    } else if (ActiveEntry.validationStatus.get('password').message === "Password is weak") {
       return "border: 1px solid #f2dede";
-    } else if (ActiveEntry.successMessages.equals('password', "Password present")) {
+    } else if (ActiveEntry.validationStatus.get('password').message === "Password present") {
       return "border: 1px solid green";
     } else {
       return "border: 1px solid gray";
     }
   },
-  signInErrorMessages: function() {
-    if (ActiveEntry.errorMessages.get("email")) {
-      return [ActiveEntry.errorMessages.get("email")];
+  signInToAppButtonValidationStyling: function() {
+    // Returns class name to enable/disable button
+    if (ActiveEntry.validationStatus.get("email").status && ActiveEntry.validationStatus.get("password").status) {
+      return 'btnEnable';
     }
-    if (ActiveEntry.errorMessages.get("password") === 'Password is required') {
-      return [ActiveEntry.errorMessages.get("password")];
-    }
-
-    return;
+    return 'btnDisable';
   }
 });
 
@@ -98,26 +95,26 @@ Template.entrySignIn.events({
   'keyup input[name="email"]': function (event, template) {
     var email = $('input[name="email"]').val();
 
-    //ActiveEntry.verifyEmail(email);
-    ActiveEntry.errorMessages.set('signInError', null);
+    ActiveEntry.verifyEmail(email);
+    ActiveEntry.validationStatus.set('signInError', {status: false, message: null});
   },
   'change input[name="email"]': function (event, template) {
     var email = $('input[name="email"]').val();
 
-    //ActiveEntry.verifyEmail(email);
-    ActiveEntry.errorMessages.set('signInError', null);
+    ActiveEntry.verifyEmail(email);
+    ActiveEntry.validationStatus.set('signInError', {status: false, message: null});
   },
   'keyup #signInPagePasswordInput': function (event, template) {
     var password = $('input[name="password"]').val();
 
-    //ActiveEntry.verifyPassword(password);
-    ActiveEntry.errorMessages.set('signInError', null);
+    ActiveEntry.verifyPassword(password);
+    ActiveEntry.validationStatus.set('signInError', {status: false, message: null});
   },
   'change #signInPagePasswordInput': function (event, template) {
     var password = $('input[name="password"]').val();
 
-    //ActiveEntry.verifyPassword(password);
-    ActiveEntry.errorMessages.set('signInError', null);
+    ActiveEntry.verifyPassword(password);
+    ActiveEntry.validationStatus.set('signInError', {status: false, message: null});
   },
   // 'submit': function (event, template) {
   //   event.preventDefault();
@@ -128,17 +125,21 @@ Template.entrySignIn.events({
   // },
   'click #signInToAppButton': function (event, template){
     console.log('click #signInToAppButton');
-    ActiveEntry.reset();
-    // var emailValue = template.$('[name=email]').val();
-    // var passwordValue = template.$('[name=password]').val();
     var emailValue = template.$('#signInPageEmailInput').val();
     var passwordValue = template.$('#signInPagePasswordInput').val();
 
     ActiveEntry.signIn(emailValue, passwordValue);
     event.preventDefault();
+  },
+
+  // Catch enter press and trigger signIn event if input values are validated
+  'keyup #entrySignIn': function(event, template) {
+    if(event.keyCode == 13 &&
+        ActiveEntry.validationStatus.get("email").status &&
+        ActiveEntry.validationStatus.get("password").status) {
+      $("#signInToAppButton").click();
+    }
   }
 });
-
-
 
 //==================================================================================================
