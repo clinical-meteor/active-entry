@@ -1,6 +1,6 @@
 // var nightwatch = require('nightwatch');
 
-describe('clinical:active-entry', function () {
+describe('clinical:entry', function () {
   var server = meteor();
   var client = browser(server);
 
@@ -23,85 +23,85 @@ describe('clinical:active-entry', function () {
   // });
 
 
-  it("ActiveEntry object should be loaded on client and server", function () {
+  it("Entry object should be loaded on client and server", function () {
     return server.execute(function () {
-      expect(ActiveEntry.isAbc()).to.equal('abc');
+      expect(Entry.isAbc()).to.equal('abc');
     }).then(function (data){
       return client.execute(function (a) {
-        expect(ActiveEntry.isAbc()).to.equal('abc');
+        expect(Entry.isAbc()).to.equal('abc');
       });
     });
   });
 
   it("Error messages should be empty by default", function () {
     return client.execute(function () {
-      expect(ActiveEntry.errorMessages.get('signInError')).to.equal(false);
+      expect(Entry.errorMessages.get('signInError')).to.equal(false);
     });
   });
 
-  // ActiveEntry.verifyEmail
+  // Entry.verifyEmail
   it('Email validation confirms it is a properly formatted email.', function () {
     return client.execute(function (a) {
-      ActiveEntry.verifyEmail('janedoe@somewhere.com');
-      expect(ActiveEntry.errorMessages.get('email')).to.equal("Email present");
+      Entry.verifyEmail('janedoe@somewhere.com');
+      expect(Entry.errorMessages.get('email')).to.equal("Email present");
 
-      ActiveEntry.verifyEmail('');
-      expect(ActiveEntry.errorMessages.get('email')).to.equal("Email is required");
+      Entry.verifyEmail('');
+      expect(Entry.errorMessages.get('email')).to.equal("Email is required");
 
-      ActiveEntry.verifyEmail('janedoe.somewhere.com');
-      expect(ActiveEntry.errorMessages.get('email')).to.equal("Email is poorly formatted");
+      Entry.verifyEmail('janedoe.somewhere.com');
+      expect(Entry.errorMessages.get('email')).to.equal("Email is poorly formatted");
     });
   });
 
 
-  // ActiveEntry.verifyPassword
+  // Entry.verifyPassword
   it('Password validation confirms it is a properly formatted password.', function () {
     return client.execute(function (a) {
-      ActiveEntry.verifyPassword('');
-      expect(ActiveEntry.errorMessages.get('password')).to.equal("Password is required");
+      Entry.verifyPassword('');
+      expect(Entry.errorMessages.get('password')).to.equal("Password is required");
 
-      ActiveEntry.verifyPassword('kittens');
-      expect(ActiveEntry.errorMessages.get('password')).to.equal("Password is weak");
+      Entry.verifyPassword('kittens');
+      expect(Entry.errorMessages.get('password')).to.equal("Password is weak");
 
-      ActiveEntry.verifyPassword('kittens123');
-      expect(ActiveEntry.errorMessages.get('password')).to.equal("Password present");
+      Entry.verifyPassword('kittens123');
+      expect(Entry.errorMessages.get('password')).to.equal("Password present");
     });
   });
 
-  // ActiveEntry.verifyConfirmPassword
+  // Entry.verifyConfirmPassword
   it('Password match confirms that two passwords are the same.', function () {
     return client.execute(function (a) {
-      ActiveEntry.verifyConfirmPassword('kittens123', '');
-      expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Password is required");
+      Entry.verifyConfirmPassword('kittens123', '');
+      expect(Entry.errorMessages.get('confirm')).to.equal("Password is required");
 
-      ActiveEntry.verifyConfirmPassword('kittens123', 'kittens');
-      expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Passwords do not match");
+      Entry.verifyConfirmPassword('kittens123', 'kittens');
+      expect(Entry.errorMessages.get('confirm')).to.equal("Passwords do not match");
 
-      ActiveEntry.verifyConfirmPassword('kittens123', 'kittens123');
-      expect(ActiveEntry.errorMessages.get('confirm')).to.equal("Passwords match");
+      Entry.verifyConfirmPassword('kittens123', 'kittens123');
+      expect(Entry.errorMessages.get('confirm')).to.equal("Passwords match");
     });
   });
 
-  // ActiveEntry.verifyFullName
+  // Entry.verifyFullName
   it('Fullname validation confirms that at least a first and last name are entered.', function () {
     return client.execute(function (a) {
-      ActiveEntry.verifyFullName('');
-      expect(ActiveEntry.errorMessages.get('fullName')).to.equal("Name is required");
+      Entry.verifyFullName('');
+      expect(Entry.errorMessages.get('fullName')).to.equal("Name is required");
 
-      ActiveEntry.verifyFullName('Jane');
-      expect(ActiveEntry.errorMessages.get('fullName')).to.equal("Name is probably not complete");
+      Entry.verifyFullName('Jane');
+      expect(Entry.errorMessages.get('fullName')).to.equal("Name is probably not complete");
 
-      ActiveEntry.verifyFullName('Jane Doe');
-      expect(ActiveEntry.errorMessages.get('fullName')).to.equal("Name present");
+      Entry.verifyFullName('Jane Doe');
+      expect(Entry.errorMessages.get('fullName')).to.equal("Name present");
     });
   });
 
 
-  // ActiveEntry.signIn
+  // Entry.signIn
   it('Newly created user record should have role, profile, and name set.', function () {
     return client.execute(function () {
-      ActiveEntry.signUp('janedoe@test.org', 'janedoe123', 'janedoe123', 'Jane Doe');
-      expect(ActiveEntry.errorMessages.get('fullName')).to.equal("Name present");
+      Entry.signUp('janedoe@test.org', 'janedoe123', 'janedoe123', 'Jane Doe');
+      expect(Entry.errorMessages.get('fullName')).to.equal("Name present");
     }).then(function (){
       return server.wait(300, 'until account is created on the server', function () {
         return Meteor.users.findOne({'emails.address': 'janedoe@test.org'});
@@ -136,7 +136,7 @@ describe('clinical:active-entry', function () {
   it("Newly created user can sign in to the application.", function () {
     return client.execute(function () {
       expect(Meteor.userId()).to.not.exist;
-      ActiveEntry.signIn('janedoe@test.org', 'janedoe123');
+      Entry.signIn('janedoe@test.org', 'janedoe123');
     }).then(function (){
       client.wait(3000, "for user to sign in", function (){
         expect(Meteor.userId()).to.exist;
@@ -146,11 +146,11 @@ describe('clinical:active-entry', function () {
   it("Newly created user can sign out of the application.", function () {
     return client.execute(function () {
       expect(Meteor.userId()).to.not.exist;
-      ActiveEntry.signIn('janedoe@test.org', 'janedoe123');
+      Entry.signIn('janedoe@test.org', 'janedoe123');
     }).then(function (){
       client.wait(3000, "for user to sign in", function (){
         expect(Meteor.userId()).to.exist;
-        ActiveEntry.signOut('janedoe@test.org');
+        Entry.signOut('janedoe@test.org');
       }).then(function (){
         expect(Meteor.userId()).to.not.exist;
       });

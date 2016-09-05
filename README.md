@@ -1,27 +1,27 @@
-## clinical:active-entry
+## clinical:entry
 
 This package provides the SignIn, SignUp, ForgotPassword, ChangePassword, and Logout pages.  
 
-[![Circle CI](https://circleci.com/gh/clinical-meteor/active-entry/tree/master.svg?style=svg)](https://circleci.com/gh/clinical-meteor/active-entry/tree/master)
+[![Circle CI](https://circleci.com/gh/clinical-meteor/entry/tree/master.svg?style=svg)](https://circleci.com/gh/clinical-meteor/entry/tree/master)
 
 ===============================
 #### Installation
 
 ````
-meteor add clinical:active-entry
+meteor add clinical:entry
 ````
 
 ===============================
 #### Entry Workflow States
 
-![Entry Workflow](https://raw.githubusercontent.com/clinical-meteor/active-entry/master/docs/Entry.png)
+![Entry Workflow](https://raw.githubusercontent.com/clinical-meteor/entry/master/docs/Entry.png)
 
 ===============================
 #### Entry Flowchart
 
 The following diagram represents the entry workflow that is being implemented in this package.  This package is under active development, and is about half completed.  Pull requests which help implement the following workflow will be fast-tracked and accepted into the package.
 
-![entry-workflow](https://raw.githubusercontent.com/clinical-meteor/active-entry/master/docs/Entry%20Workflow.png)
+![entry-workflow](https://raw.githubusercontent.com/clinical-meteor/entry/master/docs/Entry%20Workflow.png)
 
 
 
@@ -47,12 +47,12 @@ The following diagram represents the entry workflow that is being implemented in
 
 
 ===============================
-#### ActiveEntry Configuration
+#### Entry Configuration
 
 ````js
 
 if(Meteor.isClient){
-  ActiveEntry.configure({
+  Entry.configure({
     logo: {
       url: "/mini-circles.png",
       displayed: true
@@ -100,7 +100,7 @@ Simply clone the repository into your ``/packages`` directory.  You can also spe
 
 ````bash
 # clone a single package into your application
-git clone http://github.com/clinical-meteor/clinical-active-entry packages/active-entry
+git clone http://github.com/clinical-meteor/clinical-entry packages/entry
 
 # fetch all the packages listed in git-packages.json
 starrynight fetch
@@ -129,7 +129,7 @@ starrynight run-tests --type validation
 ===============================
 #### Contributing
 
-See our [notes on contributing](https://github.com/clinical-meteor/clinical-active-entry/blob/master/Contributing.md).
+See our [notes on contributing](https://github.com/clinical-meteor/clinical-entry/blob/master/Contributing.md).
 
 ===============================
 #### Licensing  
