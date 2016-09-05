@@ -2,19 +2,12 @@
 
 This package provides the SignIn, SignUp, ForgotPassword, ChangePassword, and Logout pages.  
 
-[![Circle CI](https://circleci.com/gh/clinical-meteor/entry/tree/master.svg?style=svg)](https://circleci.com/gh/clinical-meteor/entry/tree/master)
-
 ===============================
 #### Installation
 
 ````
 meteor add clinical:entry
 ````
-
-===============================
-#### Entry Workflow States
-
-![Entry Workflow](https://raw.githubusercontent.com/clinical-meteor/entry/master/docs/Entry.png)
 
 ===============================
 #### Entry Flowchart
@@ -92,6 +85,12 @@ Alternatively, you may want to set the ``MAIL_URL`` via an external environment 
 ````sh
 MAIL_URL = 'smtp://sandboxid.mailgun.org:mypassword@smtp.mailgun.org:587' meteor
 ````
+
+===============================
+#### Example Implementation  
+
+![Entry Workflow](https://raw.githubusercontent.com/clinical-meteor/entry/master/docs/Entry.png)
+
 
 ===============================
 #### Local Development
