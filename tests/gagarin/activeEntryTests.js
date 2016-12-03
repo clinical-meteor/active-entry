@@ -98,7 +98,7 @@ describe('clinical:entry', function () {
 
 
   // Entry.signIn
-  it('Newly created user record should have role, profile, and name set.', function () {
+  it('Newly created user record should have profile and name set.', function () {
     return client.execute(function () {
       Entry.signUp('janedoe@test.org', 'janedoe123', 'janedoe123', 'Jane Doe');
       //expect(Entry.errorMessages.get('fullName')).to.equal("Name present");
@@ -106,8 +106,8 @@ describe('clinical:entry', function () {
       return server.wait(300, 'until account is created on the server', function () {
         return Meteor.users.findOne({'emails.address': 'janedoe@test.org'});
       }).then(function (user){
-        expect(user.role).to.equal('user');
         expect(user.profile.fullName).to.equal('Jane Doe');
+        // expect(user.role).to.equal('user');
       });
     });
   });
